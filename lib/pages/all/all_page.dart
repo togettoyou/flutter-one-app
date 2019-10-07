@@ -25,8 +25,27 @@ class _AllPageState extends State<AllPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("all"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'ONE IS ALL',
+          style: TextStyle(color: Colors.black, letterSpacing: 3.0),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0.5,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.black38,
+            ),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Text("all"),
+      ),
     );
   }
 }

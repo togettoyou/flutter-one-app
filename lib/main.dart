@@ -10,7 +10,7 @@ import 'package:flutter_one_app/pages/one/one_page.dart';
 void main() {
   runApp(MyApp());
   if (Platform.isAndroid) {
-    //设置Android状态栏透明
+    ///设置Android状态栏透明
     SystemUiOverlayStyle systemUiOverlayStyle =
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
