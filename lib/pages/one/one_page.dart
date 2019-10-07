@@ -2,9 +2,7 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_one_app/api/api.dart';
-import 'package:flutter_one_app/utils/net_utils.dart';
-import 'package:flutter_one_app/widgets/loading_widget.dart';
+import 'package:flutter_one_app/pages/one/one_page_item.dart';
 
 class OnePage extends StatefulWidget {
   OnePage({Key key}) : super(key: key);
@@ -85,8 +83,19 @@ class _OnePageState extends State<OnePage> {
         /// 阴影
         elevation: 0.5,
       ),
-      body: Center(
-        child: LoadingShimmerWidget(),
+      body: ListView.separated(
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return OnePageItem(null);
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 12,
+            color: Color(0xFFF4F4F4),
+          );
+        },
+        itemCount: 20,
       ),
     );
   }
