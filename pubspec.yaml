@@ -27,7 +27,16 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  # 网络请求
+  dio: ^3.0.3
+  # 状态管理
+  provider: ^3.1.0
+  # 网络缓存图片
+  cached_network_image: ^1.1.1
+  # 下拉刷新、上拉加载
+  flutter_easyrefresh: ^2.0.4
+  # 微光效果控件
+  shimmer: ^1.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

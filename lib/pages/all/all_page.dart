@@ -1,6 +1,5 @@
-/**
- * ALL导航页面
- */
+///ALL导航页面
+
 import 'package:flutter/material.dart';
 
 class AllPage extends StatefulWidget {

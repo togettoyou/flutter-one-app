@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_one_app/pages/all/all_page.dart';
 import 'package:flutter_one_app/pages/me/me_page.dart';
 import 'package:flutter_one_app/pages/one/one_page.dart';
+import 'package:flutter_one_app/routers/routers.dart';
 
 void main() {
   runApp(MyApp());
@@ -113,6 +113,9 @@ class _MyAppState extends State<MyApp> {
           },
         ),
       ),
+
+      ///绑定路由
+      onGenerateRoute: generateRoute,
     );
   }
 }

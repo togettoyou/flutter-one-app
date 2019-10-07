@@ -1,9 +1,10 @@
-import 'dart:math';
+///ONE首页
 
-/**
- * ONE首页
- */
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_one_app/api/api.dart';
+import 'package:flutter_one_app/utils/net_utils.dart';
+import 'package:flutter_one_app/widgets/loading_widget.dart';
 
 class OnePage extends StatefulWidget {
   OnePage({Key key}) : super(key: key);
@@ -18,6 +19,15 @@ class _OnePageState extends State<OnePage> {
   @override
   void initState() {
     super.initState();
+//    NetUtils.get(
+//      Api.idListUrl,
+//      success: (response) {
+//        print(response);
+//      },
+//      fail: (exception) {
+//        print('ERROR!!!!!!!!');
+//      },
+//    );
   }
 
   @override
@@ -76,7 +86,7 @@ class _OnePageState extends State<OnePage> {
         elevation: 0.5,
       ),
       body: Center(
-        child: Text("one"),
+        child: LoadingShimmerWidget(),
       ),
     );
   }
