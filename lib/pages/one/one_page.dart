@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_one_app/pages/one/one_page_item.dart';
+import 'package:flutter_one_app/utils/refresh_utils.dart';
 
 class OnePage extends StatefulWidget {
   OnePage({Key key}) : super(key: key);
@@ -91,8 +92,8 @@ class _OnePageState extends State<OnePage> {
       body: Container(
         color: Color(0xFFF4F4F4),
         child: EasyRefresh.custom(
-          header: ClassicalHeader(),
-          footer: ClassicalFooter(),
+          header: RefreshUtils.defaultHeader(),
+          footer: RefreshUtils.defaultFooter(),
           controller: _controller,
           slivers: <Widget>[
             SliverToBoxAdapter(
