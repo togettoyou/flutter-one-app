@@ -17,6 +17,7 @@ class RefreshUtils{
   }
   static Footer defaultFooter() {
     return ClassicalFooter(
+      enableInfiniteLoad: false,
       loadText: "拉动加载",
       loadReadyText: "释放加载",
       loadingText: "正在加载...",
