@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_one_app/pages/one/one_page_item.dart';
+import 'package:flutter_one_app/utils/date_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
 
 class OnePage extends StatefulWidget {
@@ -16,8 +17,7 @@ class OnePage extends StatefulWidget {
 }
 
 class _OnePageState extends State<OnePage> {
-
-  int  _count=5;
+  int _count = 5;
   EasyRefreshController _controller = EasyRefreshController();
 
   @override
@@ -47,7 +47,7 @@ class _OnePageState extends State<OnePage> {
         backgroundColor: Colors.white,
         title: Row(
           children: <Widget>[
-            Text('07',
+            Text(DateUtil.formatDate(DateTime.now(), format: "dd"),
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -55,13 +55,14 @@ class _OnePageState extends State<OnePage> {
                   letterSpacing: -0.5,
                 )),
             Padding(
-              child: Text('oct.2019',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                    letterSpacing: 0.5,
-                  )),
+              child:
+                  Text(DateUtil.getMonth(true) + DateTime.now().year.toString(),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                        letterSpacing: 0.5,
+                      )),
               padding: EdgeInsets.fromLTRB(2.0, 12.0, 0, 0),
             ),
             Padding(
@@ -80,7 +81,7 @@ class _OnePageState extends State<OnePage> {
         ),
         actions: <Widget>[
           Padding(
-            child: Text('地球 对流层 -273.15℃',
+            child: Text('地球·对流层 -273.15℃',
                 style: TextStyle(color: Colors.black87, fontSize: 12.0)),
             padding: EdgeInsets.fromLTRB(0, 26.0, 5.0, 0),
           ),
@@ -118,7 +119,7 @@ class _OnePageState extends State<OnePage> {
           onRefresh: () async {
             await Future.delayed(Duration(seconds: 2), () {
               setState(() {
-                _count=5;
+                _count = 5;
               });
               _controller.resetLoadState();
             });
@@ -126,9 +127,9 @@ class _OnePageState extends State<OnePage> {
           onLoad: () async {
             await Future.delayed(Duration(seconds: 2), () {
               setState(() {
-                _count+=5;
+                _count += 5;
               });
-              _controller.finishLoad(noMore: _count>20);
+              _controller.finishLoad(noMore: _count > 20);
             });
           },
         ),

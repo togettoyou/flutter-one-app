@@ -2,8 +2,7 @@
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-class RefreshUtils{
-
+class RefreshUtils {
   static Header defaultHeader() {
     return ClassicalHeader(
       refreshText: "拉动刷新",
@@ -15,6 +14,7 @@ class RefreshUtils{
       infoText: "更新于 %T",
     );
   }
+
   static Footer defaultFooter() {
     return ClassicalFooter(
       enableInfiniteLoad: false,
