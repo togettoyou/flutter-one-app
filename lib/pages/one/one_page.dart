@@ -1,11 +1,16 @@
 ///ONE首页
 
 import 'dart:math';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_one_app/api/api.dart';
+import 'package:flutter_one_app/entity/one_page_item_entity.dart';
 import 'package:flutter_one_app/pages/one/one_page_item.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
+import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
+import 'package:flutter_one_app/widgets/loading_widget.dart';
 
 class OnePage extends StatefulWidget {
   OnePage({Key key}) : super(key: key);
@@ -17,26 +22,33 @@ class OnePage extends StatefulWidget {
 }
 
 class _OnePageState extends State<OnePage> {
-  int _count = 5;
+  List<OnePageItemDataContentList> _contentList;
   EasyRefreshController _controller = EasyRefreshController();
 
   @override
   void initState() {
     super.initState();
-//    NetUtils.get(
-//      Api.idListUrl,
-//      success: (response) {
-//        print(response);
-//      },
-//      fail: (exception) {
-//        print('ERROR!!!!!!!!');
-//      },
-//    );
+    getData();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void getData() {
+    NetUtils.get(
+      Api.getOneList("5289"),
+      success: (response) {
+        setState(() {
+          _contentList = OnePageItemEntity.fromJson(json.decode(response))
+              .data
+              .contentList;
+        });
+        print(response);
+      },
+      fail: (exception) {},
+    );
   }
 
   @override
@@ -90,50 +102,46 @@ class _OnePageState extends State<OnePage> {
         /// 阴影
         elevation: 0.5,
       ),
-      body: Container(
-        color: Color(0xFFF4F4F4),
-        child: EasyRefresh.custom(
-          header: RefreshUtils.defaultHeader(),
-          footer: RefreshUtils.defaultFooter(),
-          controller: _controller,
-          slivers: <Widget>[
-            SliverToBoxAdapter(
-              child: Container(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return OnePageItem(null);
-                  },
-                  separatorBuilder: (context, index) {
-                    return Divider(
-                      height: 12,
-                      color: Color(0xFFF4F4F4),
-                    );
-                  },
-                  itemCount: _count,
-                ),
+      body: _contentList == null || _contentList.length == 0
+          ? LoadingShimmerWidget()
+          : Container(
+              color: Color(0xFFF4F4F4),
+              child: EasyRefresh.custom(
+                header: RefreshUtils.defaultHeader(),
+                footer: RefreshUtils.defaultFooter(),
+                controller: _controller,
+                slivers: <Widget>[
+                  SliverToBoxAdapter(
+                    child: Container(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return OnePageItem(_contentList[index]);
+                        },
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            height: 12,
+                            color: Color(0xFFF4F4F4),
+                          );
+                        },
+                        itemCount: _contentList.length,
+                      ),
+                    ),
+                  ),
+                ],
+                onRefresh: () async {
+                  setState(() {
+                    _contentList.clear();
+                  });
+                  getData();
+                  _controller.resetLoadState();
+                },
+                onLoad: () async {
+                  _controller.finishLoad();
+                },
               ),
             ),
-          ],
-          onRefresh: () async {
-            await Future.delayed(Duration(seconds: 2), () {
-              setState(() {
-                _count = 5;
-              });
-              _controller.resetLoadState();
-            });
-          },
-          onLoad: () async {
-            await Future.delayed(Duration(seconds: 2), () {
-              setState(() {
-                _count += 5;
-              });
-              _controller.finishLoad(noMore: _count > 20);
-            });
-          },
-        ),
-      ),
     );
   }
 }

@@ -190,7 +190,9 @@ class OnePageItemDataContentList {
         : null;
     wordsInfo = json['words_info'];
     audioPlatform = json['audio_platform'];
-    volume = json['volume'];
+
+    ///转化为String解决List中volume类型不同问题
+    volume = json['volume'].toString();
     adId = json['ad_id'];
     adPvurl = json['ad_pvurl'];
     adShareCnt = json['ad_share_cnt'];
@@ -422,14 +424,14 @@ class OnePageItemDataContentListShareListWxTimeline {
 }
 
 class OnePageItemDataContentListAuthor {
-  OnePageItemDataContentListAuthor();
-
   OnePageItemDataContentListAuthor.fromJson(Map<String, dynamic> json) {}
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     return data;
   }
+
+  OnePageItemDataContentListAuthor();
 }
 
 class OnePageItemDataContentListShareInfo {

@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_one_app/api/api.dart';
 import 'package:flutter_one_app/entity/one_page_item_entity.dart';
 
 class OnePageItem extends StatelessWidget {
-  final OnePageItemData item;
+  final OnePageItemDataContentList item;
 
   OnePageItem(this.item);
 
@@ -18,7 +19,7 @@ class OnePageItem extends StatelessWidget {
         children: <Widget>[
           Center(
             child: Text(
-              "-阅读-",
+              "-${Api.category[int.parse(item.category)]}-",
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 12.0,

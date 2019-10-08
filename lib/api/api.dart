@@ -1,6 +1,16 @@
 ///API接口
 
 class Api {
+  static final Map<int, String> category = {
+    0: "图文",
+    1: "阅读",
+    2: "连载",
+    3: "问答",
+    4: "音乐",
+    5: "影视",
+    8: "电台",
+  };
+
   static final String _baseUrl = "http://v3.wufazhuce.com:8000/api";
 
   static final String _oneListUrl = "$_baseUrl/onelist/";
