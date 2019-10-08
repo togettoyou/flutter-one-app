@@ -2,6 +2,7 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_one_app/pages/one/one_page_item.dart';
 
 class OnePage extends StatefulWidget {
@@ -14,6 +15,10 @@ class OnePage extends StatefulWidget {
 }
 
 class _OnePageState extends State<OnePage> {
+
+  int  _count=5;
+  EasyRefreshController _controller = EasyRefreshController();
+
   @override
   void initState() {
     super.initState();
@@ -83,19 +88,49 @@ class _OnePageState extends State<OnePage> {
         /// 阴影
         elevation: 0.5,
       ),
-      body: ListView.separated(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return OnePageItem(null);
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            height: 12,
-            color: Color(0xFFF4F4F4),
-          );
-        },
-        itemCount: 20,
+      body: Container(
+        color: Color(0xFFF4F4F4),
+        child: EasyRefresh.custom(
+          header: ClassicalHeader(),
+          footer: ClassicalFooter(),
+          controller: _controller,
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: Container(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return OnePageItem(null);
+                  },
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      height: 12,
+                      color: Color(0xFFF4F4F4),
+                    );
+                  },
+                  itemCount: _count,
+                ),
+              ),
+            ),
+          ],
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 2), () {
+              setState(() {
+                _count=5;
+              });
+              _controller.resetLoadState();
+            });
+          },
+          onLoad: () async {
+            await Future.delayed(Duration(seconds: 2), () {
+              setState(() {
+                _count+=5;
+              });
+              _controller.finishLoad(noMore: _count>20);
+            });
+          },
+        ),
       ),
     );
   }
