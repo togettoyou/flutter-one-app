@@ -23,7 +23,7 @@ class OnePage extends StatefulWidget {
 }
 
 class _OnePageState extends State<OnePage> {
-  List<String> _oneList = List();
+  List<String> _oneList;
   List<OnePageItemData> _data = List();
   EasyRefreshController _controller = EasyRefreshController();
   static int _index = 0;
@@ -40,7 +40,6 @@ class _OnePageState extends State<OnePage> {
   }
 
   void getOneList() {
-    _oneList.clear();
     NetUtils.get(
       Api.idListUrl,
       success: (response) {
@@ -49,7 +48,7 @@ class _OnePageState extends State<OnePage> {
           _index = 0;
           _data.clear();
         });
-        getData(_oneList[_index++]);
+        getData(_oneList[_index]);
       },
       fail: (exception) {},
     );
@@ -61,10 +60,12 @@ class _OnePageState extends State<OnePage> {
       success: (response) {
         OnePageItemData onePageItemData =
             OnePageItemEntity.fromJson(json.decode(response)).data;
-        if (onePageItemData != null)
+        if (onePageItemData != null) {
           setState(() {
             _data.add(onePageItemData);
+            _index++;
           });
+        }
       },
       fail: (exception) {},
     );
@@ -121,7 +122,7 @@ class _OnePageState extends State<OnePage> {
         /// 阴影
         elevation: 0.5,
       ),
-      body: _data == null
+      body: _oneList == null
           ? LoadingShimmerWidget()
           : Container(
               color: Color(0xFFF4F4F4),
@@ -150,12 +151,13 @@ class _OnePageState extends State<OnePage> {
                   ),
                 ],
                 onRefresh: () async {
+                  _oneList.clear();
                   getOneList();
                   _controller.resetLoadState();
                 },
                 onLoad: () async {
-                  getData(_oneList[_index++]);
-                  _controller.finishLoad(noMore: _index == _oneList.length);
+                  getData(_oneList[_index]);
+                  _controller.finishLoad(noMore: _index == _oneList.length - 1);
                 },
               ),
             ),
