@@ -45,7 +45,6 @@ class _OnePageState extends State<OnePage> {
               .data
               .contentList;
         });
-        print(response);
       },
       fail: (exception) {},
     );
@@ -102,7 +101,7 @@ class _OnePageState extends State<OnePage> {
         /// 阴影
         elevation: 0.5,
       ),
-      body: _contentList == null || _contentList.length == 0
+      body: _contentList == null
           ? LoadingShimmerWidget()
           : Container(
               color: Color(0xFFF4F4F4),
