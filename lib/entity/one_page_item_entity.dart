@@ -108,7 +108,7 @@ class OnePageItemDataContentList {
   String shareUrl;
   String subtitle;
   String audioUrl;
-  int movieStoryId;
+  String movieStoryId;
   String category;
   String displayCategory;
   String adMakettime;
@@ -202,7 +202,9 @@ class OnePageItemDataContentList {
     shareUrl = json['share_url'];
     subtitle = json['subtitle'];
     audioUrl = json['audio_url'];
-    movieStoryId = json['movie_story_id'];
+
+    ///转化为String解决List中movieStoryId类型不同问题
+    movieStoryId = json['movie_story_id'].toString();
     category = json['category'];
     displayCategory = json['display_category'];
     adMakettime = json['ad_makettime'];

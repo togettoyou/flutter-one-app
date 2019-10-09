@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_one_app/api/api.dart';
+import 'package:flutter_one_app/entity/one_list_entity.dart';
 import 'package:flutter_one_app/entity/one_page_item_entity.dart';
 import 'package:flutter_one_app/pages/one/one_page_item.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
@@ -22,13 +23,15 @@ class OnePage extends StatefulWidget {
 }
 
 class _OnePageState extends State<OnePage> {
-  List<OnePageItemDataContentList> _contentList;
+  List<String> _oneList = List();
+  List<OnePageItemData> _data = List();
   EasyRefreshController _controller = EasyRefreshController();
+  static int _index = 0;
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getOneList();
   }
 
   @override
@@ -36,15 +39,32 @@ class _OnePageState extends State<OnePage> {
     super.dispose();
   }
 
-  void getData() {
+  void getOneList() {
+    _oneList.clear();
     NetUtils.get(
-      Api.getOneList("5289"),
+      Api.idListUrl,
       success: (response) {
         setState(() {
-          _contentList = OnePageItemEntity.fromJson(json.decode(response))
-              .data
-              .contentList;
+          _oneList = OneListEntity.fromJson(json.decode(response)).data;
+          _index = 0;
+          _data.clear();
         });
+        getData(_oneList[_index++]);
+      },
+      fail: (exception) {},
+    );
+  }
+
+  void getData(String id) {
+    NetUtils.get(
+      Api.getOneList(id),
+      success: (response) {
+        OnePageItemData onePageItemData =
+            OnePageItemEntity.fromJson(json.decode(response)).data;
+        if (onePageItemData != null)
+          setState(() {
+            _data.add(onePageItemData);
+          });
       },
       fail: (exception) {},
     );
@@ -101,7 +121,7 @@ class _OnePageState extends State<OnePage> {
         /// 阴影
         elevation: 0.5,
       ),
-      body: _contentList == null
+      body: _data == null
           ? LoadingShimmerWidget()
           : Container(
               color: Color(0xFFF4F4F4),
@@ -116,7 +136,7 @@ class _OnePageState extends State<OnePage> {
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return OnePageItem(_contentList[index]);
+                          return OnePageItem(_data[index]);
                         },
                         separatorBuilder: (context, index) {
                           return Divider(
@@ -124,20 +144,18 @@ class _OnePageState extends State<OnePage> {
                             color: Color(0xFFF4F4F4),
                           );
                         },
-                        itemCount: _contentList.length,
+                        itemCount: _data.length,
                       ),
                     ),
                   ),
                 ],
                 onRefresh: () async {
-                  setState(() {
-                    _contentList.clear();
-                  });
-                  getData();
+                  getOneList();
                   _controller.resetLoadState();
                 },
                 onLoad: () async {
-                  _controller.finishLoad();
+                  getData(_oneList[_index++]);
+                  _controller.finishLoad(noMore: _index == _oneList.length);
                 },
               ),
             ),
