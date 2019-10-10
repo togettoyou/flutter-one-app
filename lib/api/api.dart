@@ -18,6 +18,10 @@ class Api {
   ///获取最新 idList（得到集合ID）
   static final String idListUrl = "$_baseUrl/onelist/idlist";
 
+  ///获取ALL页面专题列表(Banner)
+  static final String allBannerUrl =
+      "$_baseUrl/banner/list/4?last_id=0&channel=cool";
+
   ///根据集合ID获取首页oneList（将data替换为获取到的集合ID）
   static String getOneList(String data) {
     return _oneListUrl + data + "/0";

@@ -151,7 +151,6 @@ class _OnePageState extends State<OnePage> {
                   ),
                 ],
                 onRefresh: () async {
-                  _oneList.clear();
                   getOneList();
                   _controller.resetLoadState();
                 },

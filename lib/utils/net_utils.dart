@@ -7,7 +7,7 @@ Map<String, dynamic> optHeader = {
   'content-type': 'application/json'
 };
 
-var dio = new Dio(BaseOptions(connectTimeout: 6000, headers: optHeader));
+var dio = new Dio(BaseOptions(connectTimeout: 30000, headers: optHeader));
 
 class NetUtils {
   static get(
