@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LoadingShimmerWidget extends StatelessWidget {
+  int num;
+
+  LoadingShimmerWidget({this.num = 5});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +24,8 @@ class LoadingShimmerWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(5, (index) => renderChildWidget(context)),
+              children:
+                  List.generate(num, (index) => renderChildWidget(context)),
             ),
           ),
         ),

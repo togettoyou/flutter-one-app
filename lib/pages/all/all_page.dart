@@ -78,28 +78,30 @@ class _AllPageState extends State<AllPage> {
 
   ///换一换热门作者
   void changeHotAuthorData() {
-    if (_hotAuthorData.length > 3) {
-      setState(() {
-        _showHotAuthorData.clear();
+    if (_hotAuthorData != null) {
+      if (_hotAuthorData.length > 3) {
+        setState(() {
+          _showHotAuthorData.clear();
 
-        ///_index < _hotAuthorData.length - 1表示还可以继续换下一轮
-        for (int i = 0; i < 3 && _index < _hotAuthorData.length - 1; i++) {
-          _showHotAuthorData.add(_hotAuthorData[++_index]);
-        }
-
-        ///如果不满3个 重头开始追加
-        if (_showHotAuthorData.length < 3) {
-          _index = 0;
-          _showHotAuthorData.add(_hotAuthorData[_index]);
-          for (int i = 0;
-              i < 3 &&
-                  _index < _hotAuthorData.length - 1 &&
-                  _showHotAuthorData.length < 3;
-              i++) {
+          ///_index < _hotAuthorData.length - 1表示还可以继续换下一轮
+          for (int i = 0; i < 3 && _index < _hotAuthorData.length - 1; i++) {
             _showHotAuthorData.add(_hotAuthorData[++_index]);
           }
-        }
-      });
+
+          ///如果不满3个 重头开始追加
+          if (_showHotAuthorData.length < 3) {
+            _index = 0;
+            _showHotAuthorData.add(_hotAuthorData[_index]);
+            for (int i = 0;
+                i < 3 &&
+                    _index < _hotAuthorData.length - 1 &&
+                    _showHotAuthorData.length < 3;
+                i++) {
+              _showHotAuthorData.add(_hotAuthorData[++_index]);
+            }
+          }
+        });
+      }
     }
   }
 
@@ -188,7 +190,9 @@ class _AllPageState extends State<AllPage> {
             ),
             SliverToBoxAdapter(
               child: _bannerData == null
-                  ? LoadingShimmerWidget()
+                  ? LoadingShimmerWidget(
+                      num: 1,
+                    )
                   : ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
@@ -233,7 +237,9 @@ class _AllPageState extends State<AllPage> {
             ),
             SliverToBoxAdapter(
               child: _hotAuthorData == null
-                  ? LoadingShimmerWidget()
+                  ? LoadingShimmerWidget(
+                      num: 1,
+                    )
                   : ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
