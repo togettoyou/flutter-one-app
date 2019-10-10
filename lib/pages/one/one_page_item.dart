@@ -19,7 +19,7 @@ class OnePageItem extends StatelessWidget {
           children: <Widget>[
             InkWell(
               child: CachedNetworkImage(
-                height: 200,
+                height: 200.0,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 imageUrl: item.imgUrl,
@@ -366,7 +366,7 @@ class OnePageItem extends StatelessWidget {
       },
       separatorBuilder: (context, index) {
         return Divider(
-          height: 12,
+          height: 12.0,
           color: Color(0xFFF4F4F4),
         );
       },

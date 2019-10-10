@@ -141,7 +141,7 @@ class _OnePageState extends State<OnePage> {
                         },
                         separatorBuilder: (context, index) {
                           return Divider(
-                            height: 12,
+                            height: 12.0,
                             color: Color(0xFFF4F4F4),
                           );
                         },
