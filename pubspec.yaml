@@ -60,6 +60,9 @@ flutter:
     - images/img_all_category_003.png
     - images/img_all_category_004.png
     - images/img_all_category_005.png
+    - images/img_me_avatar.png
+    - images/img_me_bg_001.png
+    - images/img_me_bg_002.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
