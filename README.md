@@ -9,7 +9,7 @@
 
 ## API接口
 
-- [one一个图文接口API]([http://www.limuyang.cc/one-api-collect/#/?id=one%c2%b7%e4%b8%80%e4%b8%aa](http://www.limuyang.cc/one-api-collect/#/?id=one·一个))
+- [one一个图文接口API](http://www.limuyang.cc/one-api-collect/#/?id=one%c2%b7%e4%b8%80%e4%b8%aa)
 
 ## APK下载
 - [app-release.apk](https://github.com/joudev/flutter-one-app/raw/master/apk/app-release.apk)
