@@ -31,6 +31,8 @@ dev_dependencies:
   dio: ^3.0.3
   # 网络缓存图片
   cached_network_image: ^1.1.1
+  # 事件总线
+  event_bus: ^1.1.0
   # 下拉刷新、上拉加载
   flutter_easyrefresh: ^2.0.4
   # 微光效果控件

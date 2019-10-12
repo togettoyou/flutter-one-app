@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_one_app/application/app.dart';
+import 'package:flutter_one_app/events/one_tool_bar_list_event.dart';
 import 'package:flutter_one_app/pages/all/all_page.dart';
 import 'package:flutter_one_app/pages/me/me_page.dart';
 import 'package:flutter_one_app/pages/one/one_page.dart';
@@ -36,6 +38,9 @@ class _MyAppState extends State<MyApp> {
   var _tabPages;
   var _body;
 
+  ///ONE页面点击TooBar展开列表隐藏底部Bar
+  bool isShowList = false;
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +59,11 @@ class _MyAppState extends State<MyApp> {
       ],
     ];
     _tabPages ??= <Widget>[OnePage(), AllPage(), MePage()];
+    App.eventBus.on<oneToolBarListEvent>().listen((event) {
+      setState(() {
+        isShowList = event.isShowList;
+      });
+    });
   }
 
   @override
@@ -98,20 +108,25 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         body: _body,
-        bottomNavigationBar: CupertinoTabBar(
-          backgroundColor: Color(0xFFFFFFFF),
-          items: [
-            BottomNavigationBarItem(icon: getTabIcon(0), title: getTabTitle(0)),
-            BottomNavigationBarItem(icon: getTabIcon(1), title: getTabTitle(1)),
-            BottomNavigationBarItem(icon: getTabIcon(2), title: getTabTitle(2)),
-          ],
-          currentIndex: _tabIndex,
-          onTap: (index) {
-            setState(() {
-              _tabIndex = index;
-            });
-          },
-        ),
+        bottomNavigationBar: isShowList
+            ? null
+            : CupertinoTabBar(
+                backgroundColor: Color(0xFFFFFFFF),
+                items: [
+                  BottomNavigationBarItem(
+                      icon: getTabIcon(0), title: getTabTitle(0)),
+                  BottomNavigationBarItem(
+                      icon: getTabIcon(1), title: getTabTitle(1)),
+                  BottomNavigationBarItem(
+                      icon: getTabIcon(2), title: getTabTitle(2)),
+                ],
+                currentIndex: _tabIndex,
+                onTap: (index) {
+                  setState(() {
+                    _tabIndex = index;
+                  });
+                },
+              ),
       ),
 
       ///绑定路由
