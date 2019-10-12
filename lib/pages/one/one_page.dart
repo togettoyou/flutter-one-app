@@ -59,6 +59,7 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -127,7 +128,7 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
                   child: Icon(
                     Icons.network_cell,
                     color: Colors.black,
-                    size: 8.0,
+                    size: 10.0,
                   ),
                 ),
                 padding: EdgeInsets.fromLTRB(4.0, 16.0, 0, 0),
@@ -153,47 +154,77 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
         /// 阴影
         elevation: 0.5,
       ),
-      body: _isShowBody
-          ? (_oneList == null
-              ? LoadingShimmerWidget()
-              : Container(
-                  color: Color(0xFFF4F4F4),
-                  child: EasyRefresh.custom(
-                    header: RefreshUtils.defaultHeader(),
-                    footer: RefreshUtils.defaultFooter(),
-                    controller: _controller,
-                    slivers: <Widget>[
-                      SliverToBoxAdapter(
-                        child: Container(
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return OnePageItem(_data[index]);
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider(
-                                height: 12.0,
-                                color: Color(0xFFF4F4F4),
-                              );
-                            },
-                            itemCount: _data.length,
+      body: Stack(
+        children: <Widget>[
+          Offstage(
+            child: _oneList == null
+                ? LoadingShimmerWidget()
+                : Container(
+                    color: Color(0xFFF4F4F4),
+                    child: EasyRefresh.custom(
+                      header: RefreshUtils.defaultHeader(),
+                      footer: RefreshUtils.defaultFooter(),
+                      controller: _controller,
+                      slivers: <Widget>[
+                        SliverToBoxAdapter(
+                          child: Container(
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return OnePageItem(_data[index]);
+                              },
+                              separatorBuilder: (context, index) {
+                                return Divider(
+                                  height: 12.0,
+                                  color: Color(0xFFF4F4F4),
+                                );
+                              },
+                              itemCount: _data.length,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                    onRefresh: () async {
-                      getOneList();
-                      _controller.resetLoadState();
-                    },
-                    onLoad: () async {
-                      getData(_oneList[_index]);
-                      _controller.finishLoad(
-                          noMore: _index == _oneList.length - 1);
-                    },
+                      ],
+                      onRefresh: () async {
+                        getOneList();
+                        _controller.resetLoadState();
+                      },
+                      onLoad: () async {
+                        if (_index < _oneList.length) {
+                          getData(_oneList[_index]);
+                        }
+                        _controller.finishLoad(
+                            noMore: _index >= _oneList.length - 1);
+                      },
+                    ),
                   ),
-                ))
-          : Text("hello"),
+            offstage: !_isShowBody,
+          ),
+          Visibility(
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Container(
+                  child: Text("hello"),
+                  color: Colors.white,
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                  height: 12.0,
+                  color: Color(0xFFF4F4F4),
+                );
+              },
+              itemCount: 50,
+            ),
+            visible: !_isShowBody,
+
+            ///	不可见时是否维持状态
+            maintainState: false,
+          )
+        ],
+      ),
     );
   }
 }

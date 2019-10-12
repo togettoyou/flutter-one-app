@@ -38,6 +38,7 @@ class _AllPageState extends State<AllPage> {
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
