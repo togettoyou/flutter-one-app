@@ -15,12 +15,19 @@ class Api {
 
   static final String _oneListUrl = "$_baseUrl/onelist/";
 
+  static final String _toolBarListUrl = "$_baseUrl/feeds/list/";
+
   ///获取最新 idList（得到集合ID）
   static final String idListUrl = "$_baseUrl/onelist/idlist";
 
   ///根据集合ID获取首页oneList（将data替换为获取到的集合ID）
   static String getOneList(String data) {
     return _oneListUrl + data + "/0";
+  }
+
+  ///获取xx年xx月份的往期列表(首页点击头部ToolBar进入往期列表页面)
+  static String getToolBarList(String date) {
+    return _toolBarListUrl + date + "?channel=cool";
   }
 
   ///获取ALL页面专题列表(Banner)
