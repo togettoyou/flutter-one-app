@@ -84,18 +84,23 @@ class OnePageItem extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        padding: EdgeInsets.only(left: 36.0, top: 16.0),
+                        padding: EdgeInsets.only(left: 46.0, top: 16.0),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.explore,
-                          color: Colors.black,
+                      Container(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.explore,
+                            color: Colors.black,
+                          ),
+                          iconSize: 18.5,
                         ),
-                        iconSize: 18.5,
+                        padding: EdgeInsets.only(
+                          left: 6.0,
+                        ),
                       ),
                     ],
                   ),
-                  flex: 4,
+                  flex: 6,
                 ),
                 Expanded(
                   child: Container(
@@ -105,7 +110,7 @@ class OnePageItem extends StatelessWidget {
                     ),
                     padding: EdgeInsets.only(left: 10.0),
                   ),
-                  flex: 1,
+                  flex: 2,
                 ),
                 Expanded(
                   child: Container(
@@ -115,7 +120,7 @@ class OnePageItem extends StatelessWidget {
                     ),
                     padding: EdgeInsets.only(left: 10.0),
                   ),
-                  flex: 1,
+                  flex: 2,
                 ),
                 Expanded(
                   child: Container(
@@ -125,30 +130,34 @@ class OnePageItem extends StatelessWidget {
                     ),
                     padding: EdgeInsets.only(left: 10.0),
                   ),
-                  flex: 1,
+                  flex: 2,
                 ),
                 Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          item.likeCount.toString(),
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 10.0,
+                  child: Container(
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            item.likeCount.toString(),
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 10.0,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          alignment: Alignment.topRight,
+                          padding: EdgeInsets.only(top: 5.0, right: 3.0),
                         ),
-                        padding: EdgeInsets.only(left: 32.0, top: 5.0),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.favorite_border),
-                        iconSize: 18.5,
-                      ),
-                    ],
+                        IconButton(
+                          icon: Icon(Icons.favorite_border),
+                          iconSize: 18.5,
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.only(right: 2.0),
                   ),
-                  flex: 1,
+                  flex: 2,
                 ),
               ],
             ),
@@ -321,7 +330,8 @@ class OnePageItem extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            padding: EdgeInsets.only(left: 32.0, top: 5.0),
+                            alignment: Alignment.topRight,
+                            padding: EdgeInsets.only(top: 5.0),
                           ),
                           IconButton(
                             icon: Icon(Icons.favorite_border),
@@ -337,7 +347,7 @@ class OnePageItem extends StatelessWidget {
                           icon: Icon(Icons.share),
                           iconSize: 18.0,
                         ),
-                        padding: EdgeInsets.only(left: 10.0),
+                        padding: EdgeInsets.only(left: 18.0),
                       ),
                       flex: 1,
                     ),
