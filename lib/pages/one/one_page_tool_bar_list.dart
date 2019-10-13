@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_one_app/api/api.dart';
 import 'package:flutter_one_app/entity/one_page_tool_bar_list_item_entity.dart';
 import 'package:flutter_one_app/pages/one/one_page_tool_bar_list_item.dart';
@@ -23,11 +24,13 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
   EasyRefreshController _controller = EasyRefreshController();
   List<OnePageToolBarListItemEntity> _data = List();
   String _nowMonth;
+  String _nowDate;
 
   @override
   void initState() {
     super.initState();
     _nowMonth = DateUtil.formatDate(DateTime.now(), format: DataFormats.y_mo);
+    _nowDate = DateUtil.formatDate(DateTime.now(), format: DataFormats.zh_y_mo);
     getToolBarList();
   }
 
@@ -58,46 +61,98 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: EasyRefresh.custom(
-        header: RefreshUtils.defaultHeader(),
-        footer: RefreshUtils.defaultFooter(),
-        controller: _controller,
-        slivers: <Widget>[
-          SliverToBoxAdapter(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          EasyRefresh.custom(
+            header: RefreshUtils.defaultHeader(),
+            footer: RefreshUtils.defaultFooter(),
+            controller: _controller,
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: Container(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return onePageToolBarListItem(_data[index].data);
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        height: 0,
+                        color: Colors.white,
+                      );
+                    },
+                    itemCount: _data.length,
+                  ),
+                ),
+              ),
+            ],
+            onRefresh: () async {
+              setState(() {
+                _nowMonth = DateUtil.formatDate(DateTime.now(),
+                    format: DataFormats.y_mo);
+                _nowDate = DateUtil.formatDate(DateTime.now(),
+                    format: DataFormats.zh_y_mo);
+                _data.clear();
+              });
+              getToolBarList();
+              _controller.resetLoadState();
+            },
+            onLoad: () async {
+              setState(() {
+                _nowMonth = DateUtil.getLastMonth(_nowMonth);
+              });
+              getToolBarList();
+              _controller.finishLoad();
+            },
+          ),
+          InkWell(
             child: Container(
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return onePageToolBarListItem(_data[index].data);
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    height: 0,
-                    color: Colors.white,
-                  );
-                },
-                itemCount: _data.length,
+              color: Colors.white,
+              height: 48.0,
+              width: double.maxFinite,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "$_nowDate",
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.black54,
+                      size: 18.0,
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.only(bottom: 8.0),
               ),
             ),
+            onTap: () {
+              DatePicker.showDatePicker(
+                context,
+                locale: LocaleType.zh,
+                minTime: DateTime(2012, 10, 1),
+                maxTime: DateTime.now(),
+                onConfirm: (date) {
+                  setState(() {
+                    _nowMonth =
+                        DateUtil.formatDate(date, format: DataFormats.y_mo);
+                    _nowDate =
+                        DateUtil.formatDate(date, format: DataFormats.zh_y_mo);
+                    _data.clear();
+                  });
+                  getToolBarList();
+                },
+              );
+            },
           ),
         ],
-        onRefresh: () async {
-          setState(() {
-            _nowMonth =
-                DateUtil.formatDate(DateTime.now(), format: DataFormats.y_mo);
-            _data.clear();
-          });
-          getToolBarList();
-          _controller.resetLoadState();
-        },
-        onLoad: () async {
-          setState(() {
-            _nowMonth = DateUtil.getLastMonth(_nowMonth);
-          });
-          getToolBarList();
-          _controller.finishLoad();
-        },
       ),
     );
   }
