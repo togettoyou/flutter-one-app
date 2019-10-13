@@ -9,7 +9,7 @@ import 'package:flutter_one_app/entity/one_list_entity.dart';
 import 'package:flutter_one_app/entity/one_page_item_entity.dart';
 import 'package:flutter_one_app/events/one_tool_bar_list_event.dart';
 import 'package:flutter_one_app/pages/one/one_page_item.dart';
-import 'package:flutter_one_app/pages/one/one_page_item_tool_bar_list.dart';
+import 'package:flutter_one_app/pages/one/one_page_tool_bar_list.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
@@ -28,8 +28,8 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
   List<String> _oneList;
   List<OnePageItemData> _data = List();
   EasyRefreshController _controller = EasyRefreshController();
-  static int _index = 0;
-  static bool _isShowBody = true;
+  int _index = 0;
+  bool _isShowBody = true;
 
   Animation _animation;
   AnimationController _animationController;
@@ -202,7 +202,7 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
             offstage: !_isShowBody,
           ),
           Visibility(
-            child: OnePageItemToolBarList(),
+            child: OnePageToolBarList(),
             visible: !_isShowBody,
 
             ///	不可见时是否维持状态
