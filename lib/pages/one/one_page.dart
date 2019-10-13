@@ -98,118 +98,137 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        title: GestureDetector(
-          child: Row(
-            children: <Widget>[
-              Text(DateUtil.formatDate(DateTime.now(), format: "dd"),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32.0,
-                    letterSpacing: -0.5,
-                  )),
-              Padding(
-                child: Text(
-                    DateUtil.getMonth(true) + DateTime.now().year.toString(),
+    return WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          backgroundColor: Colors.white,
+          title: GestureDetector(
+            child: Row(
+              children: <Widget>[
+                Text(DateUtil.formatDate(DateTime.now(), format: "dd"),
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 12.0,
-                      letterSpacing: 0.5,
+                      fontSize: 32.0,
+                      letterSpacing: -0.5,
                     )),
-                padding: EdgeInsets.fromLTRB(2.0, 12.0, 0, 0),
-              ),
-              Padding(
-                child: RotationTransition(
-                  turns: _animation,
-                  child: Icon(
-                    Icons.network_cell,
-                    color: Colors.black,
-                    size: 10.0,
-                  ),
+                Padding(
+                  child: Text(
+                      DateUtil.getMonth(true) + DateTime.now().year.toString(),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                        letterSpacing: 0.5,
+                      )),
+                  padding: EdgeInsets.fromLTRB(2.0, 12.0, 0, 0),
                 ),
-                padding: EdgeInsets.fromLTRB(4.0, 16.0, 0, 0),
-              ),
-            ],
-          ),
-          onTap: () {
-            setState(() {
-              _isShowBody = !_isShowBody;
-            });
-            App.eventBus.fire(oneToolBarListEvent(!_isShowBody));
-            changeOpacity(!_isShowBody);
-          },
-        ),
-        actions: <Widget>[
-          Padding(
-            child: Text('地球·对流层 -273.15℃',
-                style: TextStyle(color: Colors.black87, fontSize: 12.0)),
-            padding: EdgeInsets.fromLTRB(0, 26.0, 5.0, 0),
-          ),
-        ],
-
-        /// 阴影
-        elevation: 0.5,
-      ),
-      body: Stack(
-        children: <Widget>[
-          Offstage(
-            child: _oneList == null
-                ? LoadingShimmerWidget()
-                : Container(
-                    color: Color(0xFFF4F4F4),
-                    child: EasyRefresh.custom(
-                      header: RefreshUtils.defaultHeader(),
-                      footer: RefreshUtils.defaultFooter(),
-                      controller: _controller,
-                      slivers: <Widget>[
-                        SliverToBoxAdapter(
-                          child: Container(
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return OnePageItem(_data[index]);
-                              },
-                              separatorBuilder: (context, index) {
-                                return Divider(
-                                  height: 12.0,
-                                  color: Color(0xFFF4F4F4),
-                                );
-                              },
-                              itemCount: _data.length,
-                            ),
-                          ),
-                        ),
-                      ],
-                      onRefresh: () async {
-                        getOneList();
-                        _controller.resetLoadState();
-                      },
-                      onLoad: () async {
-                        if (_index < _oneList.length) {
-                          getData(_oneList[_index]);
-                        }
-                        _controller.finishLoad(
-                            noMore: _index >= _oneList.length - 1);
-                      },
+                Padding(
+                  child: RotationTransition(
+                    turns: _animation,
+                    child: Icon(
+                      Icons.network_cell,
+                      color: Colors.black,
+                      size: 10.0,
                     ),
                   ),
-            offstage: !_isShowBody,
+                  padding: EdgeInsets.fromLTRB(4.0, 16.0, 0, 0),
+                ),
+              ],
+            ),
+            onTap: () {
+              setState(() {
+                _isShowBody = !_isShowBody;
+              });
+              App.eventBus.fire(oneToolBarListEvent(!_isShowBody));
+              changeOpacity(!_isShowBody);
+            },
           ),
-          Visibility(
-            child: OnePageToolBarList(),
-            visible: !_isShowBody,
+          actions: <Widget>[
+            Padding(
+              child: Text('地球·对流层 -273.15℃',
+                  style: TextStyle(color: Colors.black87, fontSize: 12.0)),
+              padding: EdgeInsets.fromLTRB(0, 26.0, 5.0, 0),
+            ),
+          ],
 
-            ///	不可见时是否维持状态
-            maintainState: false,
-          )
-        ],
+          /// 阴影
+          elevation: 0.5,
+        ),
+        body: Stack(
+          children: <Widget>[
+            Offstage(
+              child: Container(
+                color: Color(0xFFF4F4F4),
+                child: EasyRefresh.custom(
+                  header: RefreshUtils.defaultHeader(),
+                  footer: RefreshUtils.defaultFooter(),
+                  controller: _controller,
+                  slivers: <Widget>[
+                    SliverToBoxAdapter(
+                      child: _oneList == null
+                          ? LoadingShimmerWidget()
+                          : Container(
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                physics: BouncingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return OnePageItem(_data[index]);
+                                },
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                    height: 12.0,
+                                    color: Color(0xFFF4F4F4),
+                                  );
+                                },
+                                itemCount: _data.length,
+                              ),
+                            ),
+                    ),
+                  ],
+                  onRefresh: () async {
+                    getOneList();
+                    _controller.resetLoadState();
+                  },
+                  onLoad: () async {
+                    if (_oneList != null) {
+                      if (_index < _oneList.length) {
+                        getData(_oneList[_index]);
+                      }
+                      _controller.finishLoad(
+                          noMore: _index >= _oneList.length - 1);
+                    }
+                  },
+                ),
+              ),
+              offstage: !_isShowBody,
+            ),
+            Visibility(
+              child: OnePageToolBarList(),
+              visible: !_isShowBody,
+
+              ///	不可见时是否维持状态
+              maintainState: false,
+            )
+          ],
+        ),
       ),
+      onWillPop: () async {
+        ///监听返回键
+        if (_isShowBody) {
+          ///当前显示首页
+          return true;
+        } else {
+          ///当前显示往期列表
+          setState(() {
+            _isShowBody = !_isShowBody;
+          });
+          App.eventBus.fire(oneToolBarListEvent(!_isShowBody));
+          changeOpacity(!_isShowBody);
+        }
+        return false;
+      },
     );
   }
 }

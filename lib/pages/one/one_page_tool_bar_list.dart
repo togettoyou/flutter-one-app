@@ -10,6 +10,7 @@ import 'package:flutter_one_app/pages/one/one_page_tool_bar_list_item.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
+import 'package:flutter_one_app/widgets/loading_widget.dart';
 
 class OnePageToolBarList extends StatefulWidget {
   OnePageToolBarList({Key key}) : super(key: key);
@@ -70,22 +71,24 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
             controller: _controller,
             slivers: <Widget>[
               SliverToBoxAdapter(
-                child: Container(
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return onePageToolBarListItem(_data[index].data);
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider(
-                        height: 0,
-                        color: Colors.white,
-                      );
-                    },
-                    itemCount: _data.length,
-                  ),
-                ),
+                child: _data.length == 0
+                    ? LoadingShimmerWidget()
+                    : Container(
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return onePageToolBarListItem(_data[index].data);
+                          },
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              height: 0,
+                              color: Colors.white,
+                            );
+                          },
+                          itemCount: _data.length,
+                        ),
+                      ),
               ),
             ],
             onRefresh: () async {
