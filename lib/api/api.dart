@@ -35,6 +35,6 @@ class Api {
 
   ///获取特定日期的图文信息
   static String getCategoryUrl(String type, String date) {
-    return "$_baseUrl/api/$type/bymonth/$date?channel=cool";
+    return "$_baseUrl/$type/bymonth/$date?channel=cool";
   }
 }

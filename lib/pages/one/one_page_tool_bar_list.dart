@@ -10,7 +10,6 @@ import 'package:flutter_one_app/pages/one/one_page_tool_bar_list_item.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
-import 'package:flutter_one_app/widgets/loading_widget.dart';
 
 class OnePageToolBarList extends StatefulWidget {
   OnePageToolBarList({Key key}) : super(key: key);
@@ -22,6 +21,7 @@ class OnePageToolBarList extends StatefulWidget {
 }
 
 class _OnePageToolBarListState extends State<OnePageToolBarList> {
+  int _num;
   EasyRefreshController _controller = EasyRefreshController();
   List<OnePageToolBarListItemEntity> _data = List();
   String _nowMonth;
@@ -30,6 +30,7 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
   @override
   void initState() {
     super.initState();
+    _num = 1;
     _nowMonth = DateUtil.formatDate(DateTime.now(), format: DataFormats.y_mo);
     _nowDate = DateUtil.formatDate(DateTime.now(), format: DataFormats.zh_y_mo);
     getToolBarList();
@@ -47,12 +48,22 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
       success: (response) {
         OnePageToolBarListItemEntity onePageToolBarListItemEntity =
             OnePageToolBarListItemEntity.fromJson(json.decode(response));
-        if (onePageToolBarListItemEntity.data != null &&
-            onePageToolBarListItemEntity.data.length > 0 &&
+        if (onePageToolBarListItemEntity != null &&
+            onePageToolBarListItemEntity.data != null &&
             _data != null) {
-          setState(() {
-            _data.add(onePageToolBarListItemEntity);
-          });
+          if (onePageToolBarListItemEntity.data.length > 0) {
+            setState(() {
+              _data.add(onePageToolBarListItemEntity);
+            });
+          } else {
+            ///如果上一个月无数据，尝试搜索往前10个月的数据
+            if (_num % 10 != 0) {
+              print("往上一个月加载重试次数:$_num");
+              _nowMonth = DateUtil.getLastMonth(_nowMonth);
+              getToolBarList();
+            }
+            _num++;
+          }
         }
       },
       fail: (exception) {},
@@ -109,9 +120,14 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
           ),
 
           ///修复debug模式往期列表选择日期奔溃bug
-          ///不能直接用_data.length == 0?LoadingShimmerWidget():ListView
+          ///不能直接用_data.length == 0?Widget():ListView
           Visibility(
-            child: LoadingShimmerWidget(),
+            child: Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.grey[200],
+                valueColor: AlwaysStoppedAnimation(Colors.blue),
+              ),
+            ),
             visible: _data.length == 0,
             maintainState: false,
             maintainAnimation: false,
