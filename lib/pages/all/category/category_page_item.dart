@@ -11,7 +11,28 @@ class categoryPageItem extends StatelessWidget {
 
   categoryPageItem(this._type, this._data);
 
-  Widget getItemWidget(CategoryHpData item) {
+  String getNowMonth() {
+    String _nowMonth;
+    switch (_type) {
+      case "hp":
+        _nowMonth = _data[0].maketime;
+        break;
+      case "question":
+        _nowMonth = _data[0].questionMakettime;
+        break;
+      case "essay":
+        _nowMonth = _data[0].hpMakettime;
+        break;
+      case "serialcontent":
+        _nowMonth = _data[0].maketime;
+        break;
+      default:
+        return "分割线";
+    }
+    return DateUtil.formatDateStr(_nowMonth, format: "MM月");
+  }
+
+  Widget getItemByHpWidget(CategoryHpData item) {
     return Container(
       child: Column(
         children: <Widget>[
@@ -60,48 +81,99 @@ class categoryPageItem extends StatelessWidget {
     );
   }
 
+  Widget getItemByDefaultWidget(var item) {
+    String title = "";
+    String subTitle = "";
+    String imgUrl = "";
+    switch (_type) {
+      case "question":
+        title = item.questionTitle;
+        subTitle = item.answerContent;
+        imgUrl = item.authorList[0].webUrl;
+        break;
+      case "essay":
+        title = item.hpTitle;
+        subTitle = "文/${item.author[0].userName}";
+        imgUrl = item.author[0].webUrl;
+        break;
+      case "serialcontent":
+        title = item.title;
+        subTitle = "文/${item.author.userName}";
+        imgUrl = item.author.webUrl;
+        break;
+      case "music":
+        title = item.storyTitle;
+        subTitle = "${item.album} | ${item.author.userName}";
+        imgUrl = item.authorList[0].webUrl;
+        break;
+    }
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 14.0,
+          color: Colors.black,
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
+      subtitle: Text(
+        subTitle,
+        style: TextStyle(
+          fontSize: 12.0,
+          color: Colors.black87,
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
+      leading: CachedNetworkImage(
+        width: 40,
+        height: 40,
+        imageUrl: imgUrl,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _type != "hp"
-        ? Text(_type)
-        : Column(
+    return Column(
+      children: <Widget>[
+        Container(
+          child: Flex(
+            direction: Axis.horizontal,
             children: <Widget>[
-              Container(
-                child: Flex(
-                  direction: Axis.horizontal,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        height: 0.2,
-                        width: 100.0,
-                        color: Colors.black38,
-                      ),
-                      flex: 1,
-                    ),
-                    Container(
-                      child: Text(
-                        DateUtil.formatDateStr(_data[0].maketime,
-                            format: "MM月"),
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black54,
-                        ),
-                      ),
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 0.2,
-                        width: 100.0,
-                        color: Colors.black38,
-                      ),
-                      flex: 1,
-                    ),
-                  ],
+              Expanded(
+                child: Container(
+                  height: 0.2,
+                  width: 100.0,
+                  color: Colors.black38,
                 ),
-                padding: EdgeInsets.all(15.0),
+                flex: 1,
               ),
-              GridView.builder(
+              Container(
+                child: Text(
+                  getNowMonth(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black54,
+                  ),
+                ),
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              ),
+              Expanded(
+                child: Container(
+                  height: 0.2,
+                  width: 100.0,
+                  color: Colors.black38,
+                ),
+                flex: 1,
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(15.0),
+        ),
+        _type == "hp"
+            ? GridView.builder(
                 shrinkWrap: true,
                 itemCount: _data.length,
                 physics: NeverScrollableScrollPhysics(),
@@ -109,10 +181,24 @@ class categoryPageItem extends StatelessWidget {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (context, index) {
-                  return getItemWidget(_data[index]);
+                  return getItemByHpWidget(_data[index]);
                 },
-              ),
-            ],
-          );
+              )
+            : ListView.separated(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return getItemByDefaultWidget(_data[index]);
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 0.2,
+                    color: Colors.black38,
+                  );
+                },
+                itemCount: _data.length,
+              )
+      ],
+    );
   }
 }
