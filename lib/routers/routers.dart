@@ -1,9 +1,14 @@
 ///路由管理
 
 import 'package:flutter/material.dart';
+import 'package:flutter_one_app/pages/all/category/category_page.dart';
 
 ///配置路由
-final routes = {};
+final routes = {
+  '/categoryPage': (context, {arguments}) => categoryPage(
+        arguments: arguments,
+      ),
+};
 
 ///统一处理路由跳转传参
 Function generateRoute = (RouteSettings settings) {

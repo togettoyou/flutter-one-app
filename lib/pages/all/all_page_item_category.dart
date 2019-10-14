@@ -53,7 +53,16 @@ class AllPageItemCategory extends StatelessWidget {
           ],
           alignment: Alignment.bottomCenter,
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/categoryPage',
+            arguments: {
+              "name": '${name[_index]}',
+              "type": '${nameEN[_index]}',
+            },
+          );
+        },
       ),
     );
   }
