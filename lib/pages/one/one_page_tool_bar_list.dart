@@ -45,14 +45,15 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
     NetUtils.get(
       Api.getToolBarList(_nowMonth),
       success: (response) {
-        setState(() {
-          OnePageToolBarListItemEntity onePageToolBarListItemEntity =
-              OnePageToolBarListItemEntity.fromJson(json.decode(response));
-          if (onePageToolBarListItemEntity.data != null &&
-              onePageToolBarListItemEntity.data.length > 0) {
+        OnePageToolBarListItemEntity onePageToolBarListItemEntity =
+            OnePageToolBarListItemEntity.fromJson(json.decode(response));
+        if (onePageToolBarListItemEntity.data != null &&
+            onePageToolBarListItemEntity.data.length > 0 &&
+            _data != null) {
+          setState(() {
             _data.add(onePageToolBarListItemEntity);
-          }
-        });
+          });
+        }
       },
       fail: (exception) {},
     );
@@ -71,44 +72,50 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
             controller: _controller,
             slivers: <Widget>[
               SliverToBoxAdapter(
-                child: _data.length == 0
-                    ? LoadingShimmerWidget()
-                    : Container(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return onePageToolBarListItem(_data[index].data);
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider(
-                              height: 0,
-                              color: Colors.white,
-                            );
-                          },
-                          itemCount: _data.length,
-                        ),
-                      ),
+                child: Container(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return onePageToolBarListItem(_data[index].data);
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        height: 0,
+                        color: Colors.white,
+                      );
+                    },
+                    itemCount: _data.length,
+                  ),
+                ),
               ),
             ],
             onRefresh: () async {
               setState(() {
-                _nowMonth = DateUtil.formatDate(DateTime.now(),
-                    format: DataFormats.y_mo);
                 _nowDate = DateUtil.formatDate(DateTime.now(),
                     format: DataFormats.zh_y_mo);
                 _data.clear();
               });
+              _nowMonth =
+                  DateUtil.formatDate(DateTime.now(), format: DataFormats.y_mo);
               getToolBarList();
               _controller.resetLoadState();
             },
             onLoad: () async {
-              setState(() {
-                _nowMonth = DateUtil.getLastMonth(_nowMonth);
-              });
+              _nowMonth = DateUtil.getLastMonth(_nowMonth);
               getToolBarList();
               _controller.finishLoad();
             },
+          ),
+
+          ///修复debug模式往期列表选择日期奔溃bug
+          ///不能直接用_data.length == 0?LoadingShimmerWidget():ListView
+          Visibility(
+            child: LoadingShimmerWidget(),
+            visible: _data.length == 0,
+            maintainState: false,
+            maintainAnimation: false,
+            maintainSize: false,
           ),
           InkWell(
             child: Container(
@@ -142,14 +149,14 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
                 locale: LocaleType.zh,
                 minTime: DateTime(2012, 10, 1),
                 maxTime: DateTime.now(),
-                onConfirm: (date) {
+                onConfirm: (date) async {
                   setState(() {
-                    _nowMonth =
-                        DateUtil.formatDate(date, format: DataFormats.y_mo);
                     _nowDate =
                         DateUtil.formatDate(date, format: DataFormats.zh_y_mo);
                     _data.clear();
                   });
+                  _nowMonth =
+                      DateUtil.formatDate(date, format: DataFormats.y_mo);
                   getToolBarList();
                 },
               );
