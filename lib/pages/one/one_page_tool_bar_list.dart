@@ -114,6 +114,10 @@ class _OnePageToolBarListState extends State<OnePageToolBarList> {
             },
             onLoad: () async {
               _nowMonth = DateUtil.getLastMonth(_nowMonth);
+              setState(() {
+                _nowDate =
+                    "${_nowMonth.split('-')[0]}年${_nowMonth.split('-')[1]}月";
+              });
               getToolBarList();
               _controller.finishLoad();
             },
