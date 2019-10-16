@@ -42,4 +42,9 @@ class Api {
   static String getDetailsUrl(String type, String id) {
     return "$_baseUrl/$type/detail/$id?channel=cool";
   }
+
+  ///获取文章评论
+  static String getCommentUrl(String type, String id) {
+    return "$_baseUrl/comment/praiseandtime/$type/$id/0?channel=cool";
+  }
 }

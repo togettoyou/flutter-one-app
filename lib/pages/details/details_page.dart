@@ -9,6 +9,8 @@ import 'package:flutter_one_app/entity/details/detail_music_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_question_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_serial_content_entity.dart';
 import 'package:flutter_one_app/entity/details/details_essay_entity.dart';
+import 'package:flutter_one_app/entity/details/details_item_comment_entity.dart';
+import 'package:flutter_one_app/pages/details/details_page_item_comment.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/widgets/loading_widget.dart';
 import 'package:html/dom.dart' as dom;
@@ -41,6 +43,7 @@ class _detailsPageState extends State<detailsPage> {
     'praiseNum': '',
     'commentNum': '',
   };
+  DetailsItemCommentData _commentData;
 
   @override
   void initState() {
@@ -50,6 +53,7 @@ class _detailsPageState extends State<detailsPage> {
     _id = widget.arguments['id'];
     print("title:$_title type:$_type id:$_id");
     getDetailsData();
+    getCommentData();
   }
 
   @override
@@ -124,6 +128,19 @@ class _detailsPageState extends State<detailsPage> {
             default:
               break;
           }
+        });
+      },
+      fail: (exception) {},
+    );
+  }
+
+  void getCommentData() {
+    NetUtils.get(
+      Api.getCommentUrl(_type != "serialcontent" ? _type : "serial", _id),
+      success: (response) {
+        setState(() {
+          _commentData =
+              DetailsItemCommentEntity.fromJson(json.decode(response)).data;
         });
       },
       fail: (exception) {},
@@ -319,13 +336,32 @@ class _detailsPageState extends State<detailsPage> {
                       width: 68.0,
                       color: Colors.black,
                     ),
-                    LoadingShimmerWidget(
-                      num: 1,
-                    ),
+                    _commentData == null
+                        ? LoadingShimmerWidget(
+                            num: 1,
+                          )
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                child: detailsPageItemComment(
+                                    _commentData.data[index]),
+                                color: Colors.white,
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return Divider(
+                                height: 12.0,
+                                color: Color(0xFFF4F4F4),
+                              );
+                            },
+                            itemCount: _commentData.data.length,
+                          ),
                   ],
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-                padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 64.0),
+                padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 28.0),
               ),
             ),
           ],
