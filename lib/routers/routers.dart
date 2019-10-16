@@ -2,10 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_one_app/pages/all/category/category_page.dart';
+import 'package:flutter_one_app/pages/details/details_page.dart';
 
 ///配置路由
 final routes = {
   '/categoryPage': (context, {arguments}) => categoryPage(
+        arguments: arguments,
+      ),
+  '/detailsPage': (context, {arguments}) => detailsPage(
         arguments: arguments,
       ),
 };

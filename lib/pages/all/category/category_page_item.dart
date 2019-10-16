@@ -81,30 +81,35 @@ class categoryPageItem extends StatelessWidget {
     );
   }
 
-  Widget getItemByDefaultWidget(var item) {
+  Widget getItemByDefaultWidget(var item, BuildContext context) {
     String title = "";
     String subTitle = "";
     String imgUrl = "";
+    String id = "";
     switch (_type) {
       case "question":
         title = item.questionTitle;
         subTitle = item.answerContent;
         imgUrl = item.authorList[0].webUrl;
+        id = item.questionId;
         break;
       case "essay":
         title = item.hpTitle;
         subTitle = "文/${item.author[0].userName}";
         imgUrl = item.author[0].webUrl;
+        id = item.contentId;
         break;
       case "serialcontent":
         title = item.title;
         subTitle = "文/${item.author.userName}";
         imgUrl = item.author.webUrl;
+        id = item.id;
         break;
       case "music":
         title = item.storyTitle;
         subTitle = "${item.album} | ${item.author.userName}";
         imgUrl = item.authorList[0].webUrl;
+        id = item.id;
         break;
     }
     return ListTile(
@@ -131,6 +136,17 @@ class categoryPageItem extends StatelessWidget {
         height: 40,
         imageUrl: imgUrl,
       ),
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/detailsPage',
+          arguments: {
+            "type": _type,
+            "title": title,
+            "id": id,
+          },
+        );
+      },
     );
   }
 
@@ -188,7 +204,7 @@ class categoryPageItem extends StatelessWidget {
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return getItemByDefaultWidget(_data[index]);
+                  return getItemByDefaultWidget(_data[index], context);
                 },
                 separatorBuilder: (context, index) {
                   return Divider(

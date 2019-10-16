@@ -37,4 +37,9 @@ class Api {
   static String getCategoryUrl(String type, String date) {
     return "$_baseUrl/$type/bymonth/$date?channel=cool";
   }
+
+  ///获取文章详情
+  static String getDetailsUrl(String type, String id) {
+    return "$_baseUrl/$type/detail/$id?channel=cool";
+  }
 }
