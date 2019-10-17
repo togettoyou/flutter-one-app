@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_one_app/api/api.dart';
+import 'package:flutter_one_app/entity/details/detail_hp_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_music_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_question_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_serial_content_entity.dart';
@@ -53,7 +54,9 @@ class _detailsPageState extends State<detailsPage> {
     _id = widget.arguments['id'];
     print("title:$_title type:$_type id:$_id");
     getDetailsData();
-    getCommentData();
+    if (_type != "hp") {
+      getCommentData();
+    }
   }
 
   @override
@@ -67,6 +70,9 @@ class _detailsPageState extends State<detailsPage> {
       success: (response) {
         setState(() {
           switch (_type) {
+            case "hp":
+              _data = DetailHpEntity.fromJson(json.decode(response)).data;
+              break;
             case "question":
               _data = DetailQuestionEntity.fromJson(json.decode(response)).data;
               _detailsData['title'] = "${_data.questionTitle}";
@@ -175,7 +181,158 @@ class _detailsPageState extends State<detailsPage> {
                 valueColor: AlwaysStoppedAnimation(Colors.blue),
               ),
             )
-          : getBody(),
+          : (_type == "hp" ? getByHpBody() : getBody()),
+    );
+  }
+
+  Widget getByHpBody() {
+    return Column(
+      children: <Widget>[
+        InkWell(
+          child: CachedNetworkImage(
+            height: 200.0,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            imageUrl: _data.hpImgUrl,
+          ),
+          onTap: () {},
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Center(
+                  child: Text(
+                    "${_data.hpAuthor}",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.only(top: 12.0),
+              ),
+              Container(
+                child: Text(
+                  _data.hpContent,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 15.0,
+                  ),
+                ),
+                width: double.infinity,
+                padding: EdgeInsets.only(top: 26.0, left: 12.0),
+              ),
+              Container(
+                child: Center(
+                  child: Text(
+                    "${_data.textAuthors}",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.only(top: 26.0, bottom: 24.0),
+              ),
+            ],
+          ),
+        ),
+        Flex(
+          direction: Axis.horizontal,
+          children: <Widget>[
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "发现",
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 12.0,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    padding: EdgeInsets.only(left: 46.0, top: 16.0),
+                  ),
+                  Container(
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.explore,
+                        color: Colors.black,
+                      ),
+                      iconSize: 18.5,
+                    ),
+                    padding: EdgeInsets.only(
+                      left: 6.0,
+                    ),
+                  ),
+                ],
+              ),
+              flex: 6,
+            ),
+            Expanded(
+              child: Container(
+                child: IconButton(
+                  icon: Icon(Icons.colorize),
+                  iconSize: 18.0,
+                ),
+                padding: EdgeInsets.only(left: 10.0),
+              ),
+              flex: 2,
+            ),
+            Expanded(
+              child: Container(
+                child: IconButton(
+                  icon: Icon(Icons.bookmark_border),
+                  iconSize: 18.0,
+                ),
+                padding: EdgeInsets.only(left: 10.0),
+              ),
+              flex: 2,
+            ),
+            Expanded(
+              child: Container(
+                child: IconButton(
+                  icon: Icon(Icons.share),
+                  iconSize: 18.0,
+                ),
+                padding: EdgeInsets.only(left: 10.0),
+              ),
+              flex: 2,
+            ),
+            Expanded(
+              child: Container(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        _data.praisenum.toString(),
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 10.0,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      alignment: Alignment.topRight,
+                      padding: EdgeInsets.only(top: 5.0, right: 3.0),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.favorite_border),
+                      iconSize: 18.5,
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.only(right: 2.0),
+              ),
+              flex: 2,
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -361,13 +518,13 @@ class _detailsPageState extends State<detailsPage> {
                   ],
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-                padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 28.0),
+                padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 20.0),
               ),
             ),
           ],
         ),
         Container(
-          height: 62.0,
+          height: 56.0,
           width: double.maxFinite,
           color: Colors.white,
           child: Column(
@@ -401,7 +558,7 @@ class _detailsPageState extends State<detailsPage> {
                           padding: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
                         ),
                       ),
-                      padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                      padding: EdgeInsets.only(left: 22.0, right: 22.0),
                     ),
                     flex: 6,
                   ),

@@ -32,52 +32,66 @@ class categoryPageItem extends StatelessWidget {
     return DateUtil.formatDateStr(_nowMonth, format: "MM月");
   }
 
-  Widget getItemByHpWidget(CategoryHpData item) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(0),
-              border: Border.all(
-                color: Colors.black38,
-                width: 0.5,
-              ),
-            ),
-            child: Container(
-              child: CachedNetworkImage(
-                height: 110.0,
-                width: 180.0,
-                fit: BoxFit.cover,
-                imageUrl: item.hpImgUrl,
-              ),
-              padding: EdgeInsets.all(0.5),
-            ),
-          ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(0),
-              border: Border.all(
-                color: Colors.black38,
-                width: 0.5,
-              ),
-            ),
-            child: Container(
-              child: Text(
-                DateUtil.formatDateStr(item.maketime, format: "yyyy/MM/dd"),
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black54,
+  Widget getItemByHpWidget(CategoryHpData item, BuildContext context) {
+    return InkWell(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                border: Border.all(
+                  color: Colors.black38,
+                  width: 0.5,
                 ),
               ),
-              alignment: Alignment.center,
-              width: 180.0,
-              height: 30.0,
+              child: Container(
+                child: CachedNetworkImage(
+                  height: 110.0,
+                  width: 180.0,
+                  fit: BoxFit.cover,
+                  imageUrl: item.hpImgUrl,
+                ),
+                padding: EdgeInsets.all(0.5),
+              ),
             ),
-          ),
-        ],
+            DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                border: Border.all(
+                  color: Colors.black38,
+                  width: 0.5,
+                ),
+              ),
+              child: Container(
+                child: Text(
+                  DateUtil.formatDateStr(item.maketime, format: "yyyy/MM/dd"),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.black54,
+                  ),
+                ),
+                alignment: Alignment.center,
+                width: 180.0,
+                height: 30.0,
+              ),
+            ),
+          ],
+        ),
+        padding: EdgeInsets.only(left: 10.0, right: 10.0),
       ),
-      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/detailsPage',
+          arguments: {
+            "type": _type,
+            "title":
+                DateUtil.formatDateStr(item.maketime, format: "yyyy/MM/dd"),
+            "id": item.hpcontentId,
+          },
+        );
+      },
     );
   }
 
@@ -197,7 +211,7 @@ class categoryPageItem extends StatelessWidget {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (context, index) {
-                  return getItemByHpWidget(_data[index]);
+                  return getItemByHpWidget(_data[index], context);
                 },
               )
             : ListView.separated(
