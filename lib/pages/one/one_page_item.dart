@@ -5,13 +5,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_one_app/api/api.dart';
 import 'package:flutter_one_app/entity/one_page_item_entity.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
+import 'package:flutter_one_app/widgets/image_download_widget.dart';
 
 class OnePageItem extends StatelessWidget {
   final OnePageItemData _data;
 
   OnePageItem(this._data);
 
-  Widget getItemWidget(OnePageItemDataContentList item) {
+  Widget getItemWidget(OnePageItemDataContentList item, BuildContext context) {
     Widget _widget;
     switch (int.parse(item.category)) {
       case 0:
@@ -24,7 +25,15 @@ class OnePageItem extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: item.imgUrl,
               ),
-              onTap: () {},
+              onTap: () {
+                showDialog<Null>(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return ImageDownloadWidget(item.imgUrl);
+                  },
+                ).then((val) {});
+              },
             ),
             Container(
               padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0),
@@ -202,6 +211,18 @@ class OnePageItem extends StatelessWidget {
                         ),
                         padding: EdgeInsets.only(top: 12.0, left: 12.0),
                       ),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/detailsPage',
+                          arguments: {
+                            "type":
+                                "${Api.categoryEn[int.parse(_data.contentList[index + 1].category)]}",
+                            "title": "${_data.contentList[index + 1].title}",
+                            "id": "${_data.contentList[index + 1].contentId}",
+                          },
+                        );
+                      },
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -356,7 +377,17 @@ class OnePageItem extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/detailsPage',
+              arguments: {
+                "type": "${Api.categoryEn[int.parse(item.category)]}",
+                "title": "${item.title}",
+                "id": "${item.contentId}",
+              },
+            );
+          },
         );
         break;
     }
@@ -370,7 +401,7 @@ class OnePageItem extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
-          child: getItemWidget(_data.contentList[index]),
+          child: getItemWidget(_data.contentList[index], context),
           color: Colors.white,
         );
       },

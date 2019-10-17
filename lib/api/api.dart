@@ -10,6 +10,15 @@ class Api {
     5: "影视",
     8: "电台",
   };
+  static final Map<int, String> categoryEn = {
+    0: "hp",
+    1: "essay",
+    2: "serialcontent",
+    3: "question",
+    4: "music",
+    5: "movie",
+    8: "radio",
+  };
 
   static final String _baseUrl = "http://v3.wufazhuce.com:8000/api";
 
@@ -41,6 +50,11 @@ class Api {
   ///获取文章详情
   static String getDetailsUrl(String type, String id) {
     return "$_baseUrl/$type/detail/$id?channel=cool";
+  }
+
+  ///获取影视文章详情
+  static String getDetailsByMovieUrl(String id) {
+    return "$_baseUrl/movie/$id/story/1/0?channel=cool";
   }
 
   ///获取文章评论

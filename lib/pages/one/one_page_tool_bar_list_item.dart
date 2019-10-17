@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_one_app/entity/one_page_tool_bar_list_item_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
+import 'package:flutter_one_app/widgets/image_download_widget.dart';
 
 class onePageToolBarListItem extends StatelessWidget {
   List<OnePageToolBarListItemData> _data;
 
   onePageToolBarListItem(this._data);
 
-  Widget getItemWidget(OnePageToolBarListItemData item) {
+  Widget getItemWidget(OnePageToolBarListItemData item, BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
@@ -22,14 +23,25 @@ class onePageToolBarListItem extends StatelessWidget {
                 width: 0.5,
               ),
             ),
-            child: Container(
-              child: CachedNetworkImage(
-                height: 110.0,
-                width: 180.0,
-                fit: BoxFit.cover,
-                imageUrl: item.cover,
+            child: InkWell(
+              child: Container(
+                child: CachedNetworkImage(
+                  height: 110.0,
+                  width: 180.0,
+                  fit: BoxFit.cover,
+                  imageUrl: item.cover,
+                ),
+                padding: EdgeInsets.all(0.5),
               ),
-              padding: EdgeInsets.all(0.5),
+              onTap: () {
+                showDialog<Null>(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return ImageDownloadWidget(item.cover);
+                  },
+                ).then((val) {});
+              },
             ),
           ),
           DecoratedBox(
@@ -105,7 +117,7 @@ class onePageToolBarListItem extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemBuilder: (context, index) {
-            return getItemWidget(_data[index]);
+            return getItemWidget(_data[index], context);
           },
         ),
       ],

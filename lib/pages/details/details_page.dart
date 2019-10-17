@@ -6,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_one_app/api/api.dart';
 import 'package:flutter_one_app/entity/details/detail_hp_entity.dart';
+import 'package:flutter_one_app/entity/details/detail_movie_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_music_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_question_entity.dart';
 import 'package:flutter_one_app/entity/details/detail_serial_content_entity.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_one_app/entity/details/details_essay_entity.dart';
 import 'package:flutter_one_app/entity/details/details_item_comment_entity.dart';
 import 'package:flutter_one_app/pages/details/details_page_item_comment.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
+import 'package:flutter_one_app/widgets/image_download_widget.dart';
 import 'package:flutter_one_app/widgets/loading_widget.dart';
 import 'package:html/dom.dart' as dom;
 
@@ -53,7 +55,11 @@ class _detailsPageState extends State<detailsPage> {
     _type = widget.arguments['type'];
     _id = widget.arguments['id'];
     print("title:$_title type:$_type id:$_id");
-    getDetailsData();
+    if (_type == "movie") {
+      getDetailsByMovieData();
+    } else {
+      getDetailsData();
+    }
     if (_type != "hp") {
       getCommentData();
     }
@@ -62,6 +68,30 @@ class _detailsPageState extends State<detailsPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void getDetailsByMovieData() {
+    NetUtils.get(
+      Api.getDetailsByMovieUrl(_id),
+      success: (response) {
+        setState(() {
+          _data = DetailMovieEntity.fromJson(json.decode(response)).data;
+          _detailsData['title'] = "${_data.data[0].title}";
+          _detailsData['subTitle'] = "文 / ${_data.data[0].user.userName}";
+          _detailsData['content'] = "${_data.data[0].content}";
+          _detailsData['authorIntroduce'] =
+              "${_data.data[0].chargeEdt} ${_data.data[0].editorEmail}";
+          _detailsData['copyRight'] = "${_data.data[0].copyright}";
+          _detailsData['author'] =
+              "${_data.data[0].user.userName} ${_data.data[0].user.wbName}";
+          _detailsData['authorDesc'] = "${_data.data[0].user.desc}";
+          _detailsData['authorWebUrl'] = "${_data.data[0].user.webUrl}";
+          _detailsData['praiseNum'] = "${_data.data[0].praisenum}";
+          _detailsData['commentNum'] = "";
+        });
+      },
+      fail: (exception) {},
+    );
   }
 
   void getDetailsData() {
@@ -195,7 +225,15 @@ class _detailsPageState extends State<detailsPage> {
             fit: BoxFit.cover,
             imageUrl: _data.hpImgUrl,
           ),
-          onTap: () {},
+          onTap: () {
+            showDialog<Null>(
+              context: context,
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return ImageDownloadWidget(_data.hpImgUrl);
+              },
+            ).then((val) {});
+          },
         ),
         Container(
           padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0),
