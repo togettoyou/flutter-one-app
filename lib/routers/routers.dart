@@ -1,6 +1,7 @@
 ///路由管理
 
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_one_app/pages/all/category/category_page.dart';
 import 'package:flutter_one_app/pages/details/details_page.dart';
 
@@ -20,13 +21,13 @@ Function generateRoute = (RouteSettings settings) {
   final Function pageContentBuilder = routes[name];
   if (pageContentBuilder != null) {
     if (settings.arguments != null) {
-      final Route route = MaterialPageRoute(
+      final Route route = CupertinoPageRoute(
           builder: (context) =>
               pageContentBuilder(context, arguments: settings.arguments));
       return route;
     } else {
       final Route route =
-          MaterialPageRoute(builder: (context) => pageContentBuilder(context));
+          CupertinoPageRoute(builder: (context) => pageContentBuilder(context));
       return route;
     }
   }
