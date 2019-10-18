@@ -16,6 +16,7 @@ import 'package:flutter_one_app/pages/details/details_page_item_comment.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/widgets/image_download_widget.dart';
 import 'package:flutter_one_app/widgets/loading_widget.dart';
+import 'package:flutter_one_app/widgets/music_play_widget.dart';
 import 'package:html/dom.dart' as dom;
 
 class detailsPage extends StatefulWidget {
@@ -380,6 +381,18 @@ class _detailsPageState extends State<detailsPage> {
         CustomScrollView(
           physics: ScrollPhysics(),
           slivers: <Widget>[
+            _type == "music"
+                ? SliverToBoxAdapter(
+                    child: musicPlayWidget(
+                      "${_data.musicId}",
+                      "${_data.cover}",
+                    ),
+                  )
+                : SliverToBoxAdapter(
+                    child: Container(
+                      height: 0,
+                    ),
+                  ),
             SliverToBoxAdapter(
               child: Container(
                 child: Column(
