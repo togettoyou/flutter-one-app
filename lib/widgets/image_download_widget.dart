@@ -82,8 +82,9 @@ class _ImageDownloadWidgetState extends State<ImageDownloadWidget> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIos: 1,
+          textColor: Colors.black,
           backgroundColor: Colors.white,
-          fontSize: 15.0);
+          fontSize: 14.0);
     }
   }
 }
