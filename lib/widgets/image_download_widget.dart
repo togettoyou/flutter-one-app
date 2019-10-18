@@ -1,6 +1,12 @@
 ///图片下载对话框
 
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ImageDownloadWidget extends StatefulWidget {
@@ -18,6 +24,9 @@ class _ImageDownloadWidgetState extends State<ImageDownloadWidget> {
   @override
   void initState() {
     super.initState();
+    PermissionHandler().requestPermissions(<PermissionGroup>[
+      PermissionGroup.storage, // 添加文件存储权限
+    ]);
   }
 
   @override
@@ -47,12 +56,34 @@ class _ImageDownloadWidgetState extends State<ImageDownloadWidget> {
                   color: Colors.black,
                   size: 32.0,
                 ),
-                onPressed: () {},
+                onPressed: _getHttp,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  _getHttp() async {
+    var response = await Dio().get(widget.imageUrl,
+        options: Options(responseType: ResponseType.bytes));
+    final result =
+        await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    bool isSuccess = false;
+    if (Platform.isIOS) {
+      isSuccess = result;
+    } else if (Platform.isAndroid) {
+      if (result != "" || result != null) isSuccess = true;
+    }
+    if (isSuccess) {
+      Fluttertoast.showToast(
+          msg: "下载成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.white,
+          fontSize: 15.0);
+    }
   }
 }
