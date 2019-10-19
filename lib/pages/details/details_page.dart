@@ -202,7 +202,7 @@ class _detailsPageState extends State<detailsPage> {
           ),
         ],
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: _type == "music" ? Colors.blueGrey : Colors.white,
         elevation: 0.5,
       ),
       body: _data == null
@@ -212,7 +212,17 @@ class _detailsPageState extends State<detailsPage> {
                 valueColor: AlwaysStoppedAnimation(Colors.blue),
               ),
             )
-          : (_type == "hp" ? getByHpBody() : getBody()),
+          : Container(
+              child: (_type == "hp" ? getByHpBody() : getBody()),
+              decoration: _type == "music"
+                  ? BoxDecoration(
+                      gradient: LinearGradient(
+                      colors: [Colors.blueGrey, Colors.redAccent],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ))
+                  : null,
+            ),
     );
   }
 
@@ -577,7 +587,7 @@ class _detailsPageState extends State<detailsPage> {
         Container(
           height: 56.0,
           width: double.maxFinite,
-          color: Colors.white,
+          color: _type == "music" ? Colors.redAccent : Colors.white,
           child: Column(
             children: <Widget>[
               Container(

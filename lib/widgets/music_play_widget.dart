@@ -107,12 +107,13 @@ class _musicPlayWidgetState extends State<musicPlayWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 550.0,
       child: Column(
         children: <Widget>[
           Container(
+            width: MediaQuery.of(context).size.width,
+            height: 300.0,
             padding: EdgeInsets.all(12.0),
-            height: 220.0,
-            width: 180.0,
             child: CachedNetworkImage(
               fit: BoxFit.cover,
               imageUrl: widget.imgUrl,
@@ -121,12 +122,6 @@ class _musicPlayWidgetState extends State<musicPlayWidget> {
           _buildPlayer(),
         ],
       ),
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-        colors: [Colors.blueGrey, Colors.redAccent],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      )),
     );
   }
 
