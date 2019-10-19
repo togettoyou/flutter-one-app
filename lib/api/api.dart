@@ -42,6 +42,11 @@ class Api {
   ///获取ALL页面近期热门作者列表
   static final String hotAuthorUrl = "$_baseUrl/author/hot?channel=cool";
 
+  ///获取热门作者动态，page_num当前页数，author_id作者ID
+  static String getHotAuthorWorksUrl(int num, String id) {
+    return "$_baseUrl/author/works?channel=cool&page_num=$num&author_id=$id";
+  }
+
   ///获取特定日期的图文信息
   static String getCategoryUrl(String type, String date) {
     return "$_baseUrl/$type/bymonth/$date?channel=cool";

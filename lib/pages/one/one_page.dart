@@ -174,7 +174,7 @@ class _OnePageState extends State<OnePage> with TickerProviderStateMixin {
                                 shrinkWrap: true,
                                 physics: BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  return OnePageItem(_data[index]);
+                                  return OnePageItem(_data[index].contentList);
                                 },
                                 separatorBuilder: (context, index) {
                                   return Divider(

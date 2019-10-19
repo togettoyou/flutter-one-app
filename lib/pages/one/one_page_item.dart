@@ -3,16 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_one_app/api/api.dart';
-import 'package:flutter_one_app/entity/one_page_item_entity.dart';
 import 'package:flutter_one_app/utils/date_utils.dart';
 import 'package:flutter_one_app/widgets/image_download_widget.dart';
 
 class OnePageItem extends StatelessWidget {
-  final OnePageItemData _data;
+  List contentList;
 
-  OnePageItem(this._data);
+  OnePageItem(this.contentList);
 
-  Widget getItemWidget(OnePageItemDataContentList item, BuildContext context) {
+  Widget getItemWidget(var item, BuildContext context) {
     Widget _widget;
     switch (int.parse(item.category)) {
       case 0:
@@ -191,14 +190,14 @@ class OnePageItem extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(
-                        "${Api.category[int.parse(_data.contentList[index + 1].category)]}",
+                        "${Api.category[int.parse(contentList[index + 1].category)]}",
                         style: TextStyle(
                           color: Colors.black87,
                           fontSize: 12.0,
                         ),
                       ),
                       subtitle: Text(
-                        "${_data.contentList[index + 1].title}",
+                        "${contentList[index + 1].title}",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 13.0,
@@ -217,9 +216,9 @@ class OnePageItem extends StatelessWidget {
                           '/detailsPage',
                           arguments: {
                             "type":
-                                "${Api.categoryEn[int.parse(_data.contentList[index + 1].category)]}",
-                            "title": "${_data.contentList[index + 1].title}",
-                            "id": "${_data.contentList[index + 1].contentId}",
+                                "${Api.categoryEn[int.parse(contentList[index + 1].category)]}",
+                            "title": "${contentList[index + 1].title}",
+                            "id": "${contentList[index + 1].contentId}",
                           },
                         );
                       },
@@ -231,7 +230,7 @@ class OnePageItem extends StatelessWidget {
                       color: Colors.white,
                     );
                   },
-                  itemCount: _data.contentList.length - 1,
+                  itemCount: contentList.length - 1,
                 )
               ],
               initiallyExpanded: false,
@@ -401,7 +400,7 @@ class OnePageItem extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
-          child: getItemWidget(_data.contentList[index], context),
+          child: getItemWidget(contentList[index], context),
           color: Colors.white,
         );
       },
@@ -411,7 +410,7 @@ class OnePageItem extends StatelessWidget {
           color: Color(0xFFF4F4F4),
         );
       },
-      itemCount: _data.contentList.length,
+      itemCount: contentList.length,
     );
   }
 }

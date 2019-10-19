@@ -1,12 +1,18 @@
 ///热门作者详情页
 
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_one_app/api/api.dart';
 import 'package:flutter_one_app/entity/all_page_item_hot_author_entity.dart';
+import 'package:flutter_one_app/entity/hot_author_page_item_entity.dart';
+import 'package:flutter_one_app/pages/one/one_page_item.dart';
+import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
 import 'package:flutter_one_app/widgets/circle_header_widget.dart';
+import 'package:flutter_one_app/widgets/loading_widget.dart';
 
 class hotAuthorPage extends StatefulWidget {
   final arguments;
@@ -21,19 +27,47 @@ class hotAuthorPage extends StatefulWidget {
 
 class _hotAuthorPageState extends State<hotAuthorPage> {
   AllPageItemHotAuthorData authorData;
-  LinkHeaderNotifier _headerNotifier;
+  EasyRefreshController _controller = EasyRefreshController();
+  LinkHeaderNotifier _headerNotifier = LinkHeaderNotifier();
+  List<HotAuthorPageItemEntity> _listData = List();
+  int _num = 0;
 
   @override
   void initState() {
     super.initState();
     authorData = widget.arguments;
-    _headerNotifier = LinkHeaderNotifier();
+    getData();
   }
 
   @override
   void dispose() {
     _headerNotifier.dispose();
+    _controller.dispose();
     super.dispose();
+  }
+
+  void getData() {
+    if (_num != -1) {
+      NetUtils.get(
+        Api.getHotAuthorWorksUrl(_num, authorData.userId),
+        success: (response) {
+          HotAuthorPageItemEntity hotAuthorPageItemEntity =
+              HotAuthorPageItemEntity.fromJson(json.decode(response));
+          if (hotAuthorPageItemEntity != null &&
+              hotAuthorPageItemEntity.data != null) {
+            if (hotAuthorPageItemEntity.data.length != 0) {
+              setState(() {
+                _listData.add(hotAuthorPageItemEntity);
+              });
+              _num++;
+            } else {
+              _num = -1;
+            }
+          }
+        },
+        fail: (exception) {},
+      );
+    }
   }
 
   @override
@@ -47,6 +81,7 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
           completeDuration: Duration(milliseconds: 500),
         ),
         footer: RefreshUtils.defaultFooter(),
+        controller: _controller,
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 320.0,
@@ -141,17 +176,41 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
               ),
             ],
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Text("hello");
-              },
-              childCount: 100,
-            ),
+          SliverToBoxAdapter(
+            child: _listData == null || _listData.length == 0
+                ? LoadingShimmerWidget(
+                    num: 2,
+                  )
+                : Container(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return OnePageItem(_listData[index].data);
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider(
+                          height: 12.0,
+                          color: Color(0xFFF4F4F4),
+                        );
+                      },
+                      itemCount: _listData.length,
+                    ),
+                  ),
           ),
         ],
-        onRefresh: () async {},
-        onLoad: () async {},
+        onRefresh: () async {
+          setState(() {
+            _listData.clear();
+          });
+          _num = 0;
+          getData();
+          _controller.resetLoadState();
+        },
+        onLoad: () async {
+          getData();
+          _controller.finishLoad(noMore: _num == -1);
+        },
       ),
     );
   }
