@@ -154,7 +154,7 @@ class HotAuthorPageItemData {
     audioUrl = json['audio_url'];
     movieStoryId = json['movie_story_id'].toString();
     category = json['category'];
-    displayCategory = json['display_category'];
+    displayCategory = json['display_category'].toString();
     adMakettime = json['ad_makettime'];
   }
 
