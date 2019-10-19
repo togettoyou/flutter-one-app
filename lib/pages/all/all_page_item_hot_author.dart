@@ -60,6 +60,13 @@ class AllPageItemHotAuthor extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
           ),
         ),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/hotAuthorPage',
+            arguments: _item,
+          );
+        },
       ),
     );
   }
