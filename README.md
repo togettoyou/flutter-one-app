@@ -47,3 +47,39 @@
 | Toast吐司          | [fluttertoast](https://pub.dev/packages/fluttertoast)        |
 | 音乐播放           | [audioplayer](https://pub.dev/packages/audioplayer)          |
 
+### 小结
+
+项目中音乐播放源为http url，Android 9.0/P和iOS禁止从非https网址加载，故需更改 App 的网络安全配置以允许此类连接
+
+#### Android
+
+在 res 下新增一个 xml 目录，创建[network_security_config.xml](https://github.com/joudev/flutter-one-app/blob/master/android/app/src/main/res/xml/network_security_config.xml)文件
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
+```
+
+在[AndroidManifest.xml](https://github.com/joudev/flutter-one-app/blob/master/android/app/src/main/AndroidManifest.xml)文件下的application标签增加以下属性
+
+```xml
+<application
+...
+ android:networkSecurityConfig="@xml/network_security_config"
+...
+/>
+```
+
+#### iOS
+
+在[Info.plist](https://github.com/joudev/flutter-one-app/blob/master/ios/Runner/Info.plist)下编辑
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+</dict>
+```

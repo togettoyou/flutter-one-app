@@ -84,7 +84,7 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
         controller: _controller,
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: 320.0,
+            expandedHeight: 350.0,
             pinned: true,
             title: Text(
               "${authorData.userName}",

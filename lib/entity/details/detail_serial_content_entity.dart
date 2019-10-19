@@ -124,7 +124,7 @@ class DetailSerialContentData {
     author = json['author'] != null
         ? new DetailSerialContentDataAuthor.fromJson(json['author'])
         : null;
-    lastid = json['lastid'];
+    lastid = json['lastid'].toString();
     praisenum = json['praisenum'];
     if (json['author_list'] != null) {
       authorList = new List<DetailSerialContentDataAuthorList>();
