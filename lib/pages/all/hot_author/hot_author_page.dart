@@ -36,7 +36,11 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
   void initState() {
     super.initState();
     authorData = widget.arguments;
-    getData();
+    Future.delayed(new Duration(seconds: 1), () {
+      return "延时请求数据，降低跳转卡顿现象";
+    }).then((data) {
+      getData();
+    });
   }
 
   @override

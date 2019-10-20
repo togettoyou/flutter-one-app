@@ -43,7 +43,11 @@ class _categoryPageState extends State<categoryPage> {
     _type = widget.arguments['type'];
     _nowMonth = DateUtil.formatDate(DateTime.now(), format: DataFormats.y_mo);
     _nowDate = DateUtil.formatDate(DateTime.now(), format: DataFormats.zh_y_mo);
-    getData();
+    Future.delayed(new Duration(seconds: 1), () {
+      return "延时请求数据，降低跳转卡顿现象";
+    }).then((data) {
+      getData();
+    });
   }
 
   @override

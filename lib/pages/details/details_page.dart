@@ -55,15 +55,18 @@ class _detailsPageState extends State<detailsPage> {
     _title = widget.arguments['title'];
     _type = widget.arguments['type'];
     _id = widget.arguments['id'];
-    print("title:$_title type:$_type id:$_id");
-    if (_type == "movie") {
-      getDetailsByMovieData();
-    } else {
-      getDetailsData();
-    }
-    if (_type != "hp") {
-      getCommentData();
-    }
+    Future.delayed(new Duration(seconds: 1), () {
+      return "延时请求数据，降低跳转卡顿现象";
+    }).then((data) {
+      if (_type == "movie") {
+        getDetailsByMovieData();
+      } else {
+        getDetailsData();
+      }
+      if (_type != "hp") {
+        getCommentData();
+      }
+    });
   }
 
   @override
