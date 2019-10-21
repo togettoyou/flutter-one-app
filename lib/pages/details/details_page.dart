@@ -63,9 +63,6 @@ class _detailsPageState extends State<detailsPage> {
       } else {
         getDetailsData();
       }
-      if (_type != "hp") {
-        getCommentData();
-      }
     });
   }
 
@@ -92,6 +89,13 @@ class _detailsPageState extends State<detailsPage> {
           _detailsData['authorWebUrl'] = "${_data.data[0].user.webUrl}";
           _detailsData['praiseNum'] = "${_data.data[0].praisenum}";
           _detailsData['commentNum'] = "";
+        });
+        Future.delayed(new Duration(seconds: 2), () {
+          return "延时请求数据，降低跳转卡顿现象";
+        }).then((data) {
+          if (_type != "hp") {
+            getCommentData();
+          }
         });
       },
       fail: (exception) {},
@@ -167,6 +171,13 @@ class _detailsPageState extends State<detailsPage> {
               break;
             default:
               break;
+          }
+        });
+        Future.delayed(new Duration(seconds: 2), () {
+          return "延时请求数据，降低跳转卡顿现象";
+        }).then((data) {
+          if (_type != "hp") {
+            getCommentData();
           }
         });
       },
