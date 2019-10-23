@@ -80,12 +80,12 @@ class OnePageItemDataContentList {
   List<Null> serialList;
   String title;
   String picInfo;
-  int number;
+  String number;
   String videoUrl;
   String contentType;
   OnePageItemDataContentListShareList shareList;
   List<Null> tagList;
-  int serialId;
+  String serialId;
   String id;
   String adClosetime;
   String lastUpdateDate;
@@ -164,7 +164,7 @@ class OnePageItemDataContentList {
     }
     title = json['title'];
     picInfo = json['pic_info'];
-    number = json['number'];
+    number = json['number'].toString();
     videoUrl = json['video_url'];
     contentType = json['content_type'];
     shareList = json['share_list'] != null
@@ -173,7 +173,7 @@ class OnePageItemDataContentList {
     if (json['tag_list'] != null) {
       tagList = new List<Null>();
     }
-    serialId = json['serial_id'];
+    serialId = json['serial_id'].toString();
     id = json['id'];
     adClosetime = json['ad_closetime'];
     lastUpdateDate = json['last_update_date'];
