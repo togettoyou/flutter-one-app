@@ -74,9 +74,9 @@ class OnePageItemData {
 
 class OnePageItemDataContentList {
   String contentBgcolor;
-  int adType;
+  String adType;
   String startVideo;
-  int hasReading;
+  String hasReading;
   List<Null> serialList;
   String title;
   String picInfo;
@@ -89,7 +89,7 @@ class OnePageItemDataContentList {
   String id;
   String adClosetime;
   String lastUpdateDate;
-  int likeCount;
+  String likeCount;
   String itemId;
   String adPvurlVendor;
   String contentId;
@@ -97,9 +97,9 @@ class OnePageItemDataContentList {
   OnePageItemDataContentListAuthor author;
   OnePageItemDataContentListShareInfo shareInfo;
   String wordsInfo;
-  int audioPlatform;
+  String audioPlatform;
   String volume;
-  int adId;
+  String adId;
   String adPvurl;
   String adShareCnt;
   String adLinkurl;
@@ -156,9 +156,9 @@ class OnePageItemDataContentList {
 
   OnePageItemDataContentList.fromJson(Map<String, dynamic> json) {
     contentBgcolor = json['content_bgcolor'];
-    adType = json['ad_type'];
+    adType = json['ad_type'].toString();
     startVideo = json['start_video'];
-    hasReading = json['has_reading'];
+    hasReading = json['has_reading'].toString();
     if (json['serial_list'] != null) {
       serialList = new List<Null>();
     }
@@ -177,7 +177,7 @@ class OnePageItemDataContentList {
     id = json['id'];
     adClosetime = json['ad_closetime'];
     lastUpdateDate = json['last_update_date'];
-    likeCount = json['like_count'];
+    likeCount = json['like_count'].toString();
     itemId = json['item_id'];
     adPvurlVendor = json['ad_pvurl_vendor'];
     contentId = json['content_id'];
@@ -189,11 +189,11 @@ class OnePageItemDataContentList {
         ? new OnePageItemDataContentListShareInfo.fromJson(json['share_info'])
         : null;
     wordsInfo = json['words_info'];
-    audioPlatform = json['audio_platform'];
+    audioPlatform = json['audio_platform'].toString();
 
     ///转化为String解决List中volume类型不同问题
     volume = json['volume'].toString();
-    adId = json['ad_id'];
+    adId = json['ad_id'].toString();
     adPvurl = json['ad_pvurl'];
     adShareCnt = json['ad_share_cnt'];
     adLinkurl = json['ad_linkurl'];

@@ -23,7 +23,7 @@ class DetailsItemCommentEntity {
 
 class DetailsItemCommentData {
   List<DetailsItemCommentDataData> data;
-  int count;
+  String count;
 
   DetailsItemCommentData({this.data, this.count});
 
@@ -34,7 +34,7 @@ class DetailsItemCommentData {
         data.add(new DetailsItemCommentDataData.fromJson(v));
       });
     }
-    count = json['count'];
+    count = json['count'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -50,9 +50,9 @@ class DetailsItemCommentData {
 class DetailsItemCommentDataData {
   String delFlag;
   DetailsItemCommentDataDataTouser touser;
-  int praisenum;
+  String praisenum;
   String createdAt;
-  int type;
+  String type;
   String content;
   String quote;
   String updatedAt;
@@ -84,9 +84,9 @@ class DetailsItemCommentDataData {
     touser = json['touser'] != null
         ? new DetailsItemCommentDataDataTouser.fromJson(json['touser'])
         : null;
-    praisenum = json['praisenum'];
+    praisenum = json['praisenum'].toString();
     createdAt = json['created_at'];
-    type = json['type'];
+    type = json['type'].toString();
     content = json['content'];
     quote = json['quote'];
     updatedAt = json['updated_at'];

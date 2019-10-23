@@ -39,15 +39,15 @@ class DetailQuestionData {
   List<Null> tagList;
   String audio;
   String lastUpdateDate;
-  int commentnum;
+  String commentnum;
   String chargeEdt;
   String chargeEmail;
   String previousId;
-  int praisenum;
+  String praisenum;
   String questionMakettime;
   DetailQuestionDataAsker asker;
   List<DetailQuestionDataAuthorList> authorList;
-  int sharenum;
+  String sharenum;
   String questionId;
   List<DetailQuestionDataAskerList> askerList;
   String coverMediaType;
@@ -115,11 +115,11 @@ class DetailQuestionData {
     }
     audio = json['audio'];
     lastUpdateDate = json['last_update_date'];
-    commentnum = json['commentnum'];
+    commentnum = json['commentnum'].toString();
     chargeEdt = json['charge_edt'];
     chargeEmail = json['charge_email'];
     previousId = json['previous_id'];
-    praisenum = json['praisenum'];
+    praisenum = json['praisenum'].toString();
     questionMakettime = json['question_makettime'];
     asker = json['asker'] != null
         ? new DetailQuestionDataAsker.fromJson(json['asker'])
@@ -130,7 +130,7 @@ class DetailQuestionData {
         authorList.add(new DetailQuestionDataAuthorList.fromJson(v));
       });
     }
-    sharenum = json['sharenum'];
+    sharenum = json['sharenum'].toString();
     questionId = json['question_id'];
     if (json['asker_list'] != null) {
       askerList = new List<DetailQuestionDataAskerList>();

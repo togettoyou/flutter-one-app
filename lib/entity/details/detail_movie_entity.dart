@@ -25,7 +25,7 @@ class DetailMovieEntity {
 
 class DetailMovieData {
   List<DetailMovieDataData> data;
-  int count;
+  String count;
 
   DetailMovieData({this.data, this.count});
 
@@ -36,7 +36,7 @@ class DetailMovieData {
         data.add(new DetailMovieDataData.fromJson(v));
       });
     }
-    count = json['count'];
+    count = json['count'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -54,7 +54,7 @@ class DetailMovieDataData {
   String chargeEdt;
   String copyright;
   String audioDuration;
-  int praisenum;
+  String praisenum;
   String sort;
   String movieId;
   String title;
@@ -92,7 +92,7 @@ class DetailMovieDataData {
     chargeEdt = json['charge_edt'];
     copyright = json['copyright'];
     audioDuration = json['audio_duration'];
-    praisenum = json['praisenum'];
+    praisenum = json['praisenum'].toString();
     sort = json['sort'];
     movieId = json['movie_id'];
     title = json['title'];

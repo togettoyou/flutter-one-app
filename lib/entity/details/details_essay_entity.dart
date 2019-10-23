@@ -46,14 +46,14 @@ class DetailsEssayData {
   String topMediaFile;
   String lastUpdateDate;
   String editorEmail;
-  int commentnum;
+  String commentnum;
   String subTitle;
   String contentId;
   List<DetailsEssayDataAuthor> author;
   String previousId;
-  int praisenum;
+  String praisenum;
   List<DetailsEssayDataAuthorList> authorList;
-  int sharenum;
+  String sharenum;
   String hpAuthorIntroduce;
   String webUrl;
   String anchor;
@@ -122,7 +122,7 @@ class DetailsEssayData {
     topMediaFile = json['top_media_file'];
     lastUpdateDate = json['last_update_date'];
     editorEmail = json['editor_email'];
-    commentnum = json['commentnum'];
+    commentnum = json['commentnum'].toString();
     subTitle = json['sub_title'];
     contentId = json['content_id'];
     if (json['author'] != null) {
@@ -132,14 +132,14 @@ class DetailsEssayData {
       });
     }
     previousId = json['previous_id'];
-    praisenum = json['praisenum'];
+    praisenum = json['praisenum'].toString();
     if (json['author_list'] != null) {
       authorList = new List<DetailsEssayDataAuthorList>();
       (json['author_list'] as List).forEach((v) {
         authorList.add(new DetailsEssayDataAuthorList.fromJson(v));
       });
     }
-    sharenum = json['sharenum'];
+    sharenum = json['sharenum'].toString();
     hpAuthorIntroduce = json['hp_author_introduce'];
     webUrl = json['web_url'];
     anchor = json['anchor'];

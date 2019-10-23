@@ -45,13 +45,13 @@ class DetailSerialContentData {
   String topMediaFile;
   String lastUpdateDate;
   String editorEmail;
-  int commentnum;
+  String commentnum;
   String chargeEdt;
   DetailSerialContentDataAuthor author;
   String lastid;
-  int praisenum;
+  String praisenum;
   List<DetailSerialContentDataAuthorList> authorList;
-  int sharenum;
+  String sharenum;
   String lastUpdateName;
   String nextid;
   String webUrl;
@@ -119,20 +119,20 @@ class DetailSerialContentData {
     topMediaFile = json['top_media_file'];
     lastUpdateDate = json['last_update_date'];
     editorEmail = json['editor_email'];
-    commentnum = json['commentnum'];
+    commentnum = json['commentnum'].toString();
     chargeEdt = json['charge_edt'];
     author = json['author'] != null
         ? new DetailSerialContentDataAuthor.fromJson(json['author'])
         : null;
     lastid = json['lastid'].toString();
-    praisenum = json['praisenum'];
+    praisenum = json['praisenum'].toString();
     if (json['author_list'] != null) {
       authorList = new List<DetailSerialContentDataAuthorList>();
       (json['author_list'] as List).forEach((v) {
         authorList.add(new DetailSerialContentDataAuthorList.fromJson(v));
       });
     }
-    sharenum = json['sharenum'];
+    sharenum = json['sharenum'].toString();
     lastUpdateName = json['last_update_name'];
     nextid = json['nextid'].toString();
     webUrl = json['web_url'];

@@ -43,16 +43,16 @@ class DetailMusicData {
   String info;
   String lastUpdateDate;
   String editorEmail;
-  int commentnum;
+  String commentnum;
   String relatedMusics;
   String chargeEdt;
   String album;
   DetailMusicDataAuthor author;
   String previousId;
-  int praisenum;
+  String praisenum;
   String sort;
   List<DetailMusicDataAuthorList> authorList;
-  int sharenum;
+  String sharenum;
   String musicException;
   String feedsCover;
   String webUrl;
@@ -133,7 +133,7 @@ class DetailMusicData {
     info = json['info'];
     lastUpdateDate = json['last_update_date'];
     editorEmail = json['editor_email'];
-    commentnum = json['commentnum'];
+    commentnum = json['commentnum'].toString();
     relatedMusics = json['related_musics'];
     chargeEdt = json['charge_edt'];
     album = json['album'];
@@ -141,7 +141,7 @@ class DetailMusicData {
         ? new DetailMusicDataAuthor.fromJson(json['author'])
         : null;
     previousId = json['previous_id'];
-    praisenum = json['praisenum'];
+    praisenum = json['praisenum'].toString();
     sort = json['sort'];
     if (json['author_list'] != null) {
       authorList = new List<DetailMusicDataAuthorList>();
@@ -149,7 +149,7 @@ class DetailMusicData {
         authorList.add(new DetailMusicDataAuthorList.fromJson(v));
       });
     }
-    sharenum = json['sharenum'];
+    sharenum = json['sharenum'].toString();
     musicException = json['music_exception'];
     feedsCover = json['feeds_cover'];
     webUrl = json['web_url'];

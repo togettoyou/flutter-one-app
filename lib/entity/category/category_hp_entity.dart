@@ -32,8 +32,8 @@ class CategoryHpData {
   String hpImgUrl;
   String maketime;
   String hpTitle;
-  int praisenum;
-  int sharenum;
+  String praisenum;
+  String sharenum;
   String hpAuthor;
   String hpContent;
   String templateCategory;
@@ -49,7 +49,7 @@ class CategoryHpData {
   String textFrom;
   String lastUpdateDate;
   String imageAuthors;
-  int commentnum;
+  String commentnum;
 
   CategoryHpData(
       {this.hpMakettime,
@@ -82,8 +82,8 @@ class CategoryHpData {
     hpImgUrl = json['hp_img_url'];
     maketime = json['maketime'];
     hpTitle = json['hp_title'];
-    praisenum = json['praisenum'];
-    sharenum = json['sharenum'];
+    praisenum = json['praisenum'].toString();
+    sharenum = json['sharenum'].toString();
     hpAuthor = json['hp_author'];
     hpContent = json['hp_content'];
     templateCategory = json['template_category'];
@@ -101,7 +101,7 @@ class CategoryHpData {
     textFrom = json['text_from'];
     lastUpdateDate = json['last_update_date'];
     imageAuthors = json['image_authors'];
-    commentnum = json['commentnum'];
+    commentnum = json['commentnum'].toString();
   }
 
   Map<String, dynamic> toJson() {

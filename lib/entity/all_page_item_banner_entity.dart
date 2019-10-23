@@ -30,9 +30,9 @@ class AllPageItemBannerData {
   String contentId;
   List<Null> serialList;
   String linkUrl;
-  int id;
+  String id;
   String title;
-  int category;
+  String category;
 
   AllPageItemBannerData(
       {this.cover,
@@ -52,9 +52,9 @@ class AllPageItemBannerData {
       serialList = new List<Null>();
     }
     linkUrl = json['link_url'];
-    id = json['id'];
+    id = json['id'].toString();
     title = json['title'];
-    category = json['category'];
+    category = json['category'].toString();
   }
 
   Map<String, dynamic> toJson() {

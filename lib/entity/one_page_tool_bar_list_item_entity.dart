@@ -27,14 +27,14 @@ class OnePageToolBarListItemEntity {
 class OnePageToolBarListItemData {
   String date;
   String cover;
-  int id;
+  String id;
 
   OnePageToolBarListItemData({this.date, this.cover, this.id});
 
   OnePageToolBarListItemData.fromJson(Map<String, dynamic> json) {
     date = json['date'];
     cover = json['cover'];
-    id = json['id'];
+    id = json['id'].toString();
   }
 
   Map<String, dynamic> toJson() {
