@@ -22,7 +22,7 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<!-- 保存图片到本地 允许从非https网址加载-->
+	<!-- 保存图片到本地-->
 	<key>NSPhotoLibraryAddUsageDescription</key>
     <string></string>
 	<key>UILaunchStoryboardName</key>
