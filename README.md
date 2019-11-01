@@ -1,7 +1,7 @@
 # flutter_one_app
 
 - 「ONE·一个」是由韩寒监制 [1]  ，原《独唱团》主创成员共同制作的一款文艺生活App ，官网地址：[「ONE·一个」](http://wufazhuce.com/)。此项目为高仿 ，仅供学习交流使用
-- 此项目中的数据均来自[one一个图文接口API](http://www.limuyang.cc/one-api-collect/#/?id=one%c2%b7%e4%b8%80%e4%b8%aa)，仅供学习交流使用，请勿滥用
+- 此项目中的数据均来自[one一个接口API](http://www.limuyang.cc/one-api-collect/#/?id=one%c2%b7%e4%b8%80%e4%b8%aa)，仅供学习交流使用，请勿滥用
 - 项目适合Flutter的练手学习，覆盖了各种基本控件使用、下拉刷新上拉加载、HTML解析、音乐播放、图片下载、权限申请等
 
 
