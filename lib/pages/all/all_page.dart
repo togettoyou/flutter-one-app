@@ -9,9 +9,11 @@ import 'package:flutter_one_app/entity/all_page_item_hot_author_entity.dart';
 import 'package:flutter_one_app/pages/all/all_page_item_banner.dart';
 import 'package:flutter_one_app/pages/all/all_page_item_category.dart';
 import 'package:flutter_one_app/pages/all/all_page_item_hot_author.dart';
+import 'package:flutter_one_app/pages/all/search/search_page.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/utils/refresh_utils.dart';
 import 'package:flutter_one_app/widgets/loading_widget.dart';
+import 'package:flutter_one_app/widgets/search_bar.dart' as search_bar;
 
 class AllPage extends StatefulWidget {
   AllPage({Key key}) : super(key: key);
@@ -126,6 +128,12 @@ class _AllPageState extends State<AllPage> {
               Icons.search,
               color: Colors.black87,
             ),
+            onPressed: () {
+              search_bar.showSearch(
+                context: context,
+                delegate: SearchBarDelegate(),
+              );
+            },
           ),
         ],
       ),
