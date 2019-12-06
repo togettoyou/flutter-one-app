@@ -55,7 +55,7 @@ class _detailsPageState extends State<detailsPage> {
     _title = widget.arguments['title'];
     _type = widget.arguments['type'];
     _id = widget.arguments['id'];
-    Future.delayed(new Duration(seconds: 1), () {
+    Future.delayed(new Duration(milliseconds: 900), () {
       return "延时请求数据，降低跳转卡顿现象";
     }).then((data) {
       if (_type == "movie") {
@@ -90,7 +90,7 @@ class _detailsPageState extends State<detailsPage> {
           _detailsData['praiseNum'] = "${_data.data[0].praisenum}";
           _detailsData['commentNum'] = "";
         });
-        Future.delayed(new Duration(seconds: 2), () {
+        Future.delayed(new Duration(seconds: 1), () {
           return "延时请求数据，降低跳转卡顿现象";
         }).then((data) {
           if (_type != "hp") {
@@ -173,7 +173,7 @@ class _detailsPageState extends State<detailsPage> {
               break;
           }
         });
-        Future.delayed(new Duration(seconds: 2), () {
+        Future.delayed(new Duration(seconds: 1), () {
           return "延时请求数据，降低跳转卡顿现象";
         }).then((data) {
           if (_type != "hp") {

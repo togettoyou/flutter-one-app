@@ -33,6 +33,8 @@ dependencies:
   flutter_datetime_picker: ^1.2.6
   # HTML加载
   flutter_html: ^0.11.0
+  # 网页加载
+  webview_flutter: ^0.3.17
   # 权限申请
   permission_handler: ^3.2.2
   # 保存图片到相册
