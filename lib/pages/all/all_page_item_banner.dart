@@ -36,7 +36,15 @@ class AllPageItemBanner extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/bannerPage',
+          arguments: {
+            "contentId": '${item.contentId}',
+          },
+        );
+      },
     );
   }
 }

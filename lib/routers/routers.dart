@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_one_app/pages/all/banner/banner_page.dart';
 import 'package:flutter_one_app/pages/all/category/category_page.dart';
 import 'package:flutter_one_app/pages/all/hot_author/hot_author_page.dart';
 import 'package:flutter_one_app/pages/details/details_page.dart';
@@ -12,6 +13,9 @@ final routes = {
         arguments: arguments,
       ),
   '/hotAuthorPage': (context, {arguments}) => hotAuthorPage(
+        arguments: arguments,
+      ),
+  '/bannerPage': (context, {arguments}) => bannerPage(
         arguments: arguments,
       ),
   '/detailsPage': (context, {arguments}) => detailsPage(

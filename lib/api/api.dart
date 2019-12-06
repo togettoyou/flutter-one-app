@@ -40,7 +40,8 @@ class Api {
       "$_baseUrl/banner/list/4?last_id=0&channel=cool&version=4.0.2";
 
   ///获取ALL页面近期热门作者列表
-  static final String hotAuthorUrl = "$_baseUrl/author/hot?channel=cool&version=4.0.2";
+  static final String hotAuthorUrl =
+      "$_baseUrl/author/hot?channel=cool&version=4.0.2";
 
   ///获取热门作者动态，page_num当前页数，author_id作者ID
   static String getHotAuthorWorksUrl(int num, String id) {
@@ -65,5 +66,10 @@ class Api {
   ///获取文章评论
   static String getCommentUrl(String type, String id) {
     return "$_baseUrl/comment/praiseandtime/$type/$id/0?channel=cool&version=4.0.2";
+  }
+
+  ///获取ALL页面专题列表(Banner)详情
+  static String getDetailsByAllBanner(String id) {
+    return "$_baseUrl/topic/htmlcontent/$id?channel=cool&version=4.0.2";
   }
 }
