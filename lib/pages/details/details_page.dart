@@ -228,7 +228,7 @@ class _detailsPageState extends State<detailsPage> {
           ),
         ],
         centerTitle: true,
-        backgroundColor: _type == "music" ? Colors.blueGrey : Colors.white,
+        backgroundColor: _type == "music" ? Colors.black12 : Colors.white,
         elevation: 0.5,
       ),
       body: _data == null
@@ -243,7 +243,7 @@ class _detailsPageState extends State<detailsPage> {
               decoration: _type == "music"
                   ? BoxDecoration(
                       gradient: LinearGradient(
-                      colors: [Colors.blueGrey, Colors.redAccent],
+                      colors: [Colors.black38, Colors.grey],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ))
@@ -621,7 +621,7 @@ class _detailsPageState extends State<detailsPage> {
         Container(
           height: 56.0,
           width: double.maxFinite,
-          color: _type == "music" ? Colors.redAccent : Colors.white,
+          color: _type == "music" ? Colors.grey : Colors.white,
           child: Column(
             children: <Widget>[
               Container(

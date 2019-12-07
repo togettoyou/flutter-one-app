@@ -105,11 +105,8 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [Colors.blueGrey, Colors.lightBlueAccent],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
+                  color: Colors.transparent,
+                ),
                 child: Column(
                   children: <Widget>[
                     ClipOval(

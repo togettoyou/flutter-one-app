@@ -21,7 +21,7 @@ class Api {
   };
 
   static final String _baseUrl = "http://v3.wufazhuce.com:8000/api";
-  static final String _endUrl = "?channel=cool&version=4.0.2&platform=android";
+  static final String _endUrl = "?channel=cool&version=4.6.3&platform=android";
 
   ///获取最新 idList（得到集合ID）
   static final String idListUrl = "$_baseUrl/onelist/idlist";
