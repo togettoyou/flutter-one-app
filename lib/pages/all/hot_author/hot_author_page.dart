@@ -68,7 +68,10 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
               setState(() {
                 _listData.add(hotAuthorPageItemEntity);
                 if (_listData.length == 1) {
-                  authorData = _listData[0].data[0].author;
+                  if (_listData[0].data[0].author.userId != "0")
+                    authorData = _listData[0].data[0].author;
+                  else
+                    authorData = _listData[0].data[0].answerer;
                 }
               });
               _num++;

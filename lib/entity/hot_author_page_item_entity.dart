@@ -33,6 +33,7 @@ class HotAuthorPageItemData {
   String title;
   String picInfo;
   String number;
+  HotAuthorPageItemDataAuthor answerer;
   String videoUrl;
   String contentType;
   HotAuthorPageItemDataShareList shareList;
@@ -74,6 +75,7 @@ class HotAuthorPageItemData {
       this.title,
       this.picInfo,
       this.number,
+      this.answerer,
       this.videoUrl,
       this.contentType,
       this.shareList,
@@ -117,6 +119,9 @@ class HotAuthorPageItemData {
     title = json['title'];
     picInfo = json['pic_info'];
     number = json['number'].toString();
+    answerer = json['answerer'] != null
+        ? new HotAuthorPageItemDataAuthor.fromJson(json['answerer'])
+        : null;
     videoUrl = json['video_url'];
     contentType = json['content_type'];
     shareList = json['share_list'] != null
@@ -170,6 +175,9 @@ class HotAuthorPageItemData {
     data['title'] = this.title;
     data['pic_info'] = this.picInfo;
     data['number'] = this.number;
+    if (this.answerer != null) {
+      data['answerer'] = this.answerer.toJson();
+    }
     data['video_url'] = this.videoUrl;
     data['content_type'] = this.contentType;
     if (this.shareList != null) {
