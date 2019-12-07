@@ -51,6 +51,18 @@ class categoryPageItem extends StatelessWidget {
                   width: 180.0,
                   fit: BoxFit.cover,
                   imageUrl: item.hpImgUrl,
+                  errorWidget: (context, url, error) => Container(
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.error,
+                          size: 30.0,
+                        ),
+                        Text("图片加载失败"),
+                      ],
+                    ),
+                    padding: EdgeInsets.all(10.0),
+                  ),
                 ),
                 padding: EdgeInsets.all(0.5),
               ),
@@ -155,6 +167,7 @@ class categoryPageItem extends StatelessWidget {
         width: 40,
         height: 40,
         imageUrl: imgUrl,
+        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
       onTap: () {
         Navigator.pushNamed(

@@ -23,6 +23,18 @@ class OnePageItem extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.cover,
                 imageUrl: item.imgUrl,
+                errorWidget: (context, url, error) => Container(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.error,
+                        size: 30.0,
+                      ),
+                      Text("图片加载失败"),
+                    ],
+                  ),
+                  padding: EdgeInsets.all(10.0),
+                ),
               ),
               onTap: () {
                 showDialog<Null>(
@@ -286,6 +298,18 @@ class OnePageItem extends StatelessWidget {
                               width: 200,
                               fit: BoxFit.cover,
                               imageUrl: item.imgUrl,
+                              errorWidget: (context, url, error) => Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.error,
+                                      size: 30.0,
+                                    ),
+                                    Text("图片加载失败"),
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(10.0),
+                              ),
                             ),
                           ),
                           Container(
@@ -305,6 +329,18 @@ class OnePageItem extends StatelessWidget {
                         width: double.infinity,
                         fit: BoxFit.cover,
                         imageUrl: item.imgUrl,
+                        errorWidget: (context, url, error) => Container(
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.error,
+                                size: 30.0,
+                              ),
+                              Text("图片加载失败"),
+                            ],
+                          ),
+                          padding: EdgeInsets.all(10.0),
+                        ),
                       ),
                 Container(
                   child: Text(

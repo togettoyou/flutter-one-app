@@ -20,6 +20,18 @@ class AllPageItemBanner extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
               imageUrl: item.cover,
+              errorWidget: (context, url, error) => Container(
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.error,
+                      size: 30.0,
+                    ),
+                    Text("图片加载失败"),
+                  ],
+                ),
+                padding: EdgeInsets.all(10.0),
+              ),
             ),
             padding: EdgeInsets.all(16.0),
           ),
