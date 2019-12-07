@@ -26,16 +26,21 @@ class hotAuthorPage extends StatefulWidget {
 }
 
 class _hotAuthorPageState extends State<hotAuthorPage> {
-  AllPageItemHotAuthorData authorData;
+  HotAuthorPageItemDataAuthor authorData = HotAuthorPageItemDataAuthor();
   EasyRefreshController _controller = EasyRefreshController();
   LinkHeaderNotifier _headerNotifier = LinkHeaderNotifier();
   List<HotAuthorPageItemEntity> _listData = List();
+  String _userId;
   int _num = 0;
 
   @override
   void initState() {
     super.initState();
-    authorData = widget.arguments;
+    _userId = widget.arguments;
+    authorData.userName = "";
+    authorData.summary = "";
+    authorData.desc = "";
+    authorData.fansTotal = "";
     Future.delayed(new Duration(milliseconds: 800), () {
       return "延时请求数据，降低跳转卡顿现象";
     }).then((data) {
@@ -53,7 +58,7 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
   void getData() {
     if (_num != -1) {
       NetUtils.get(
-        Api.getHotAuthorWorksUrl(_num, authorData.userId),
+        Api.getHotAuthorWorksUrl(_num, _userId),
         success: (response) {
           HotAuthorPageItemEntity hotAuthorPageItemEntity =
               HotAuthorPageItemEntity.fromJson(json.decode(response));
@@ -62,6 +67,9 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
             if (hotAuthorPageItemEntity.data.length != 0) {
               setState(() {
                 _listData.add(hotAuthorPageItemEntity);
+                if (_listData.length == 1) {
+                  authorData = _listData[0].data[0].author;
+                }
               });
               _num++;
             } else {

@@ -64,7 +64,7 @@ class AllPageItemHotAuthor extends StatelessWidget {
           Navigator.pushNamed(
             context,
             '/hotAuthorPage',
-            arguments: _item,
+            arguments: _item.userId,
           );
         },
       ),

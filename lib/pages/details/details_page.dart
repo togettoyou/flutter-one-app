@@ -46,6 +46,7 @@ class _detailsPageState extends State<detailsPage> {
     'authorWebUrl': '',
     'praiseNum': '',
     'commentNum': '',
+    'authorUserId': '',
   };
   DetailsItemCommentData _commentData;
 
@@ -90,6 +91,7 @@ class _detailsPageState extends State<detailsPage> {
             _detailsData['authorWebUrl'] = "${_data.data[0].user.webUrl}";
             _detailsData['praiseNum'] = "${_data.data[0].praisenum}";
             _detailsData['commentNum'] = "";
+            _detailsData['authorUserId'] = "${_data.data[0].user.userId}";
           }
         });
         Future.delayed(new Duration(seconds: 1), () {
@@ -127,6 +129,7 @@ class _detailsPageState extends State<detailsPage> {
                     "${_data.authorList[0].userName} ${_data.authorList[0].wbName}";
                 _detailsData['authorDesc'] = "${_data.authorList[0].desc}";
                 _detailsData['authorWebUrl'] = "${_data.authorList[0].webUrl}";
+                _detailsData['authorUserId'] = "${_data.authorList[0].userId}";
               }
               _detailsData['praiseNum'] = "${_data.praisenum}";
               _detailsData['commentNum'] = "${_data.commentnum}";
@@ -144,6 +147,7 @@ class _detailsPageState extends State<detailsPage> {
                 _detailsData['author'] = "${_data.author[0].userName}";
                 _detailsData['authorDesc'] = "${_data.author[0].desc}";
                 _detailsData['authorWebUrl'] = "${_data.author[0].webUrl}";
+                _detailsData['authorUserId'] = "${_data.author[0].userId}";
               }
               break;
             case "serialcontent":
@@ -158,6 +162,7 @@ class _detailsPageState extends State<detailsPage> {
                   "${_data.author.userName} ${_data.author.wbName}";
               _detailsData['authorDesc'] = "${_data.author.desc}";
               _detailsData['authorWebUrl'] = "${_data.author.webUrl}";
+              _detailsData['authorUserId'] = "${_data.author.userId}";
               _detailsData['praiseNum'] = "${_data.praisenum}";
               _detailsData['commentNum'] = "${_data.commentnum}";
               break;
@@ -172,6 +177,7 @@ class _detailsPageState extends State<detailsPage> {
                   "${_data.storyAuthor.userName} ${_data.storyAuthor.wbName}";
               _detailsData['authorDesc'] = "${_data.storyAuthor.desc}";
               _detailsData['authorWebUrl'] = "${_data.storyAuthor.webUrl}";
+              _detailsData['authorUserId'] = "${_data.storyAuthor.userId}";
               _detailsData['praiseNum'] = "${_data.praisenum}";
               _detailsData['commentNum'] = "${_data.commentnum}";
               break;
@@ -548,6 +554,14 @@ class _detailsPageState extends State<detailsPage> {
                           padding: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
                         ),
                       ),
+                      onTap: () {
+                        print(_detailsData['authorUserId']);
+                        Navigator.pushNamed(
+                          context,
+                          '/hotAuthorPage',
+                          arguments: _detailsData['authorUserId'],
+                        );
+                      },
                     ),
                   ],
                   crossAxisAlignment: CrossAxisAlignment.start,
