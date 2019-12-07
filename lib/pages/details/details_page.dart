@@ -55,7 +55,7 @@ class _detailsPageState extends State<detailsPage> {
     _title = widget.arguments['title'];
     _type = widget.arguments['type'];
     _id = widget.arguments['id'];
-    Future.delayed(new Duration(milliseconds: 900), () {
+    Future.delayed(new Duration(milliseconds: 800), () {
       return "延时请求数据，降低跳转卡顿现象";
     }).then((data) {
       if (_type == "movie") {
@@ -77,18 +77,20 @@ class _detailsPageState extends State<detailsPage> {
       success: (response) {
         setState(() {
           _data = DetailMovieEntity.fromJson(json.decode(response)).data;
-          _detailsData['title'] = "${_data.data[0].title}";
-          _detailsData['subTitle'] = "文 / ${_data.data[0].user.userName}";
-          _detailsData['content'] = "${_data.data[0].content}";
-          _detailsData['authorIntroduce'] =
-              "${_data.data[0].chargeEdt} ${_data.data[0].editorEmail}";
-          _detailsData['copyRight'] = "${_data.data[0].copyright}";
-          _detailsData['author'] =
-              "${_data.data[0].user.userName} ${_data.data[0].user.wbName}";
-          _detailsData['authorDesc'] = "${_data.data[0].user.desc}";
-          _detailsData['authorWebUrl'] = "${_data.data[0].user.webUrl}";
-          _detailsData['praiseNum'] = "${_data.data[0].praisenum}";
-          _detailsData['commentNum'] = "";
+          if (_data.data.length != 0) {
+            _detailsData['title'] = "${_data.data[0].title}";
+            _detailsData['subTitle'] = "文 / ${_data.data[0].user.userName}";
+            _detailsData['content'] = "${_data.data[0].content}";
+            _detailsData['authorIntroduce'] =
+                "${_data.data[0].chargeEdt} ${_data.data[0].editorEmail}";
+            _detailsData['copyRight'] = "${_data.data[0].copyright}";
+            _detailsData['author'] =
+                "${_data.data[0].user.userName} ${_data.data[0].user.wbName}";
+            _detailsData['authorDesc'] = "${_data.data[0].user.desc}";
+            _detailsData['authorWebUrl'] = "${_data.data[0].user.webUrl}";
+            _detailsData['praiseNum'] = "${_data.data[0].praisenum}";
+            _detailsData['commentNum'] = "";
+          }
         });
         Future.delayed(new Duration(seconds: 1), () {
           return "延时请求数据，降低跳转卡顿现象";
@@ -120,25 +122,29 @@ class _detailsPageState extends State<detailsPage> {
                   "${_data.answerer.userName}答:\n${_data.answerContent}";
               _detailsData['authorIntroduce'] = "${_data.chargeEdt}";
               _detailsData['copyRight'] = "${_data.copyright}";
-              _detailsData['author'] =
-                  "${_data.authorList[0].userName} ${_data.authorList[0].wbName}";
-              _detailsData['authorDesc'] = "${_data.authorList[0].desc}";
-              _detailsData['authorWebUrl'] = "${_data.authorList[0].webUrl}";
+              if (_data.authorList.length != 0) {
+                _detailsData['author'] =
+                    "${_data.authorList[0].userName} ${_data.authorList[0].wbName}";
+                _detailsData['authorDesc'] = "${_data.authorList[0].desc}";
+                _detailsData['authorWebUrl'] = "${_data.authorList[0].webUrl}";
+              }
               _detailsData['praiseNum'] = "${_data.praisenum}";
               _detailsData['commentNum'] = "${_data.commentnum}";
               break;
             case "essay":
               _data = DetailsEssayEntity.fromJson(json.decode(response)).data;
               _detailsData['title'] = "${_data.hpTitle}";
-              _detailsData['subTitle'] = "文 / ${_data.author[0].userName}";
               _detailsData['content'] = "${_data.hpContent}";
               _detailsData['authorIntroduce'] = "${_data.hpAuthorIntroduce}";
               _detailsData['copyRight'] = "${_data.copyright}";
-              _detailsData['author'] = "${_data.author[0].userName}";
-              _detailsData['authorDesc'] = "${_data.author[0].desc}";
-              _detailsData['authorWebUrl'] = "${_data.author[0].webUrl}";
               _detailsData['praiseNum'] = "${_data.praisenum}";
               _detailsData['commentNum'] = "${_data.commentnum}";
+              if (_data.author.length != 0) {
+                _detailsData['subTitle'] = "文 / ${_data.author[0].userName}";
+                _detailsData['author'] = "${_data.author[0].userName}";
+                _detailsData['authorDesc'] = "${_data.author[0].desc}";
+                _detailsData['authorWebUrl'] = "${_data.author[0].webUrl}";
+              }
               break;
             case "serialcontent":
               _data = DetailSerialContentEntity.fromJson(json.decode(response))

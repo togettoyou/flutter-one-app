@@ -36,7 +36,7 @@ class _hotAuthorPageState extends State<hotAuthorPage> {
   void initState() {
     super.initState();
     authorData = widget.arguments;
-    Future.delayed(new Duration(milliseconds: 900), () {
+    Future.delayed(new Duration(milliseconds: 800), () {
       return "延时请求数据，降低跳转卡顿现象";
     }).then((data) {
       getData();

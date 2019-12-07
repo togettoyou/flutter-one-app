@@ -104,13 +104,17 @@ class categoryPageItem extends StatelessWidget {
       case "question":
         title = item.questionTitle;
         subTitle = item.answerContent;
-        imgUrl = item.authorList[0].webUrl;
+        if (item.authorList.length != 0) {
+          imgUrl = item.authorList[0].webUrl;
+        }
         id = item.questionId;
         break;
       case "essay":
         title = item.hpTitle;
-        subTitle = "文/${item.author[0].userName}";
-        imgUrl = item.author[0].webUrl;
+        if (item.author.length != 0) {
+          subTitle = "文/${item.author[0].userName}";
+          imgUrl = item.author[0].webUrl;
+        }
         id = item.contentId;
         break;
       case "serialcontent":
@@ -122,7 +126,9 @@ class categoryPageItem extends StatelessWidget {
       case "music":
         title = item.storyTitle;
         subTitle = "${item.album} | ${item.author.userName}";
-        imgUrl = item.authorList[0].webUrl;
+        if (item.authorList.length != 0) {
+          imgUrl = item.authorList[0].webUrl;
+        }
         id = item.id;
         break;
     }

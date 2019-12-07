@@ -113,7 +113,7 @@ class DetailMusicData {
     audioDuration = json['audio_duration'];
     startVideo = json['start_video'];
     title = json['title'];
-    platform = json['platform'];
+    platform = json['platform'].toString();
     cover = json['cover'];
     relatedTo = json['related_to'];
     hideFlag = json['hide_flag'];
