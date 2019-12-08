@@ -25,6 +25,9 @@
 	<!-- 保存图片到本地-->
 	<key>NSPhotoLibraryAddUsageDescription</key>
     <string></string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string></string>
+    <!-- 保存图片到本地-->
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -35,6 +38,7 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
   </dict>
+    <!-- 允许从非https网址加载-->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -53,5 +57,6 @@
 	<!-- 允许加载WebView-->
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<!-- 允许加载WebView-->
 </dict>
 </plist>

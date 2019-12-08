@@ -1,13 +1,11 @@
 ///图片下载对话框
 
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:image_downloader/image_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class ImageDownloadWidget extends StatefulWidget {
   String imageUrl;
@@ -21,12 +19,24 @@ class ImageDownloadWidget extends StatefulWidget {
 }
 
 class _ImageDownloadWidgetState extends State<ImageDownloadWidget> {
+  String _message = "";
+  String _path = "";
+  String _size = "";
+  String _mimeType = "";
+  File _imageFile;
+  int _progress = 0;
+
   @override
   void initState() {
     super.initState();
     PermissionHandler().requestPermissions(<PermissionGroup>[
       PermissionGroup.storage, // 添加文件存储权限
     ]);
+    ImageDownloader.callback(onProgressUpdate: (String imageId, int progress) {
+      setState(() {
+        _progress = progress;
+      });
+    });
   }
 
   @override
@@ -36,7 +46,133 @@ class _ImageDownloadWidgetState extends State<ImageDownloadWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ImageDownloadDialog(widget.imageUrl);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        _progress > 0 ? Container() : Text("您确定要下载该图片吗?"),
+        _progress > 0 && _progress < 100 ? Text("正在下载") : Container(),
+        _progress == 0 || _progress == 100
+            ? Container()
+            : Container(
+                child: LinearProgressIndicator(
+                  backgroundColor: Colors.grey,
+                  value: _progress / 100,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                ),
+                padding: EdgeInsets.only(top: 20.0),
+              ),
+        Text(_message),
+        _path == ""
+            ? Container()
+            : Builder(
+                builder: (context) => FlatButton.icon(
+                  icon: Icon(Icons.folder_open),
+                  label: Text("打开"),
+                  onPressed: () async {
+                    await ImageDownloader.open(_path).catchError((error) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text((error as PlatformException).message),
+                      ));
+                    });
+                  },
+                ),
+              ),
+        _progress == 0 || _progress == 100
+            ? Container()
+            : Builder(
+                builder: (context) => FlatButton.icon(
+                  icon: Icon(Icons.cancel),
+                  label: Text("停止"),
+                  onPressed: () {
+                    ImageDownloader.cancel();
+                    Future.delayed(new Duration(milliseconds: 300), () {
+                      return "停止下载";
+                    }).then((data) {
+                      print("stop停止");
+                      setState(() {
+                        _progress = 0;
+                      });
+                    });
+                  },
+                ),
+              ),
+        _progress > 0
+            ? Container()
+            : FlatButton.icon(
+                icon: Icon(Icons.file_download),
+                label: Text("下载"),
+                onPressed: () {
+                  _downloadImage(widget.imageUrl);
+                },
+              ),
+      ],
+    );
+  }
+
+  Future<void> _downloadImage(String url,
+      {AndroidDestinationType destination, bool whenError = false}) async {
+    String fileName;
+    String path;
+    int size;
+    String mimeType;
+    try {
+      String imageId;
+
+      if (whenError) {
+        imageId = await ImageDownloader.downloadImage(url).catchError((error) {
+          if (error is PlatformException) {
+            var path = "";
+            if (error.code == "404") {
+              print("Not Found Error.");
+            } else if (error.code == "unsupported_file") {
+              print("UnSupported FIle Error.");
+              path = error.details["unsupported_file_path"];
+            }
+          }
+
+          print(error);
+        }).timeout(Duration(seconds: 10), onTimeout: () {
+          print("timeout");
+          return;
+        });
+      } else {
+        if (destination == null) {
+          imageId = await ImageDownloader.downloadImage(url);
+        } else {
+          imageId = await ImageDownloader.downloadImage(
+            url,
+            destination: destination,
+          );
+        }
+      }
+
+      if (imageId == null) {
+        return;
+      }
+      fileName = await ImageDownloader.findName(imageId);
+      path = await ImageDownloader.findPath(imageId);
+      size = await ImageDownloader.findByteSize(imageId);
+      mimeType = await ImageDownloader.findMimeType(imageId);
+    } on PlatformException catch (error) {
+      setState(() {
+        _message = error.message;
+      });
+      return;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      var location = Platform.isAndroid ? "图库" : "照片";
+      _message = '已成功将"$fileName"保存在 $location中.\n';
+      _size = '大小:     $size';
+      _mimeType = 'mimeType: $mimeType';
+      _path = path;
+
+      if (!_mimeType.contains("video")) {
+        _imageFile = File(path);
+      }
+    });
   }
 }
 
@@ -59,15 +195,21 @@ class ImageDownloadDialog extends AlertDialog {
                 Icons.file_download,
               ),
               onPressed: () {
-                _getHttp();
-                Fluttertoast.showToast(
-                    msg: "正在下载",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIos: 1,
-                    textColor: Colors.white,
-                    backgroundColor: Colors.black,
-                    fontSize: 14.0);
+                showDialog<bool>(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("提示"),
+                      content: ImageDownloadWidget(imageUrl),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("取消"),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
           ],
@@ -134,29 +276,6 @@ class ImageDownloadDialog extends AlertDialog {
       ]),
     );
   }
-
-  _getHttp() async {
-    var response = await Dio()
-        .get(imageUrl, options: Options(responseType: ResponseType.bytes));
-    final result =
-        await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
-    bool isSuccess = false;
-    if (Platform.isIOS) {
-      isSuccess = result;
-    } else if (Platform.isAndroid) {
-      if (result != "" || result != null) isSuccess = true;
-    }
-    if (isSuccess) {
-      Fluttertoast.showToast(
-          msg: "下载成功",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 1,
-          textColor: Colors.white,
-          backgroundColor: Colors.black,
-          fontSize: 14.0);
-    }
-  }
 }
 
 ///封装一个showGeneralDialog方法
@@ -168,7 +287,7 @@ Future<T> showImageDownloadDialog<T>({
 }) {
   final ThemeData theme = Theme.of(context, shadowThemeOnly: true);
   final WidgetBuilder builder = (BuildContext context) {
-    return ImageDownloadWidget(imageUrl);
+    return ImageDownloadDialog(imageUrl);
   };
   return showGeneralDialog(
     context: context,
