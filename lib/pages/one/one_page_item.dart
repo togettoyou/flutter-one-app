@@ -37,13 +37,10 @@ class OnePageItem extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                showDialog<Null>(
+                showImageDownloadDialog<bool>(
                   context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return ImageDownloadWidget(item.imgUrl);
-                  },
-                ).then((val) {});
+                  imageUrl: item.imgUrl,
+                );
               },
             ),
             Container(

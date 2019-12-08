@@ -58,7 +58,17 @@ class ImageDownloadDialog extends AlertDialog {
               icon: Icon(
                 Icons.file_download,
               ),
-              onPressed: _getHttp,
+              onPressed: () {
+                _getHttp();
+                Fluttertoast.showToast(
+                    msg: "正在下载",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 1,
+                    textColor: Colors.white,
+                    backgroundColor: Colors.black,
+                    fontSize: 14.0);
+              },
             ),
           ],
         ),
@@ -81,6 +91,42 @@ class ImageDownloadDialog extends AlertDialog {
                   inPageView: false,
                   initialAlignment: InitialAlignment.center,
                 );
+              },
+              loadStateChanged: (ExtendedImageState state) {
+                switch (state.extendedImageLoadState) {
+                  case LoadState.loading:
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.grey[200],
+                        valueColor: AlwaysStoppedAnimation(Colors.blue),
+                      ),
+                    );
+                    break;
+                  case LoadState.completed:
+                    return state.completedWidget;
+                    break;
+                  case LoadState.failed:
+                    state.imageProvider.evict();
+                    return Container(
+                      child: InkWell(
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.error,
+                              size: 30.0,
+                            ),
+                            Text("图片加载失败，点击重试"),
+                          ],
+                        ),
+                        onTap: () {
+                          state.reLoadImage();
+                        },
+                      ),
+                      padding: EdgeInsets.all(10.0),
+                    );
+                    break;
+                }
+                return Container();
               },
             );
           }),
@@ -107,7 +153,7 @@ class ImageDownloadDialog extends AlertDialog {
           gravity: ToastGravity.BOTTOM,
           timeInSecForIos: 1,
           textColor: Colors.white,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           fontSize: 14.0);
     }
   }
