@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayer/audioplayer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_one_app/widgets/image_download_widget.dart';
 
 enum PlayerState { stopped, playing, paused }
 
@@ -110,14 +111,22 @@ class _musicPlayWidgetState extends State<musicPlayWidget> {
       height: 550.0,
       child: Column(
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 300.0,
-            padding: EdgeInsets.all(12.0),
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: widget.imgUrl,
+          InkWell(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300.0,
+              padding: EdgeInsets.all(12.0),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: widget.imgUrl,
+              ),
             ),
+            onTap: () {
+              showImageDownloadDialog<bool>(
+                context: context,
+                imageUrl: widget.imgUrl,
+              );
+            },
           ),
           _buildPlayer(),
         ],

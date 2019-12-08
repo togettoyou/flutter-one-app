@@ -264,13 +264,10 @@ class _detailsPageState extends State<detailsPage> {
             imageUrl: _data.hpImgUrl,
           ),
           onTap: () {
-            showDialog<Null>(
+            showImageDownloadDialog<bool>(
               context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context) {
-                return ImageDownloadWidget(_data.hpImgUrl);
-              },
-            ).then((val) {});
+              imageUrl: _data.hpImgUrl,
+            );
           },
         ),
         Container(
@@ -464,7 +461,10 @@ class _detailsPageState extends State<detailsPage> {
                 //Optional parameters:
                 padding: EdgeInsets.all(14.0),
                 onImageTap: (src) {
-                  print(src);
+                  showImageDownloadDialog<bool>(
+                    context: context,
+                    imageUrl: src,
+                  );
                 },
                 customTextStyle: (dom.Node node, TextStyle baseStyle) {
                   if (node is dom.Element) {

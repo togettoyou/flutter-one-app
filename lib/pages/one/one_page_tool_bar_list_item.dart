@@ -46,13 +46,10 @@ class onePageToolBarListItem extends StatelessWidget {
                 padding: EdgeInsets.all(0.5),
               ),
               onTap: () {
-                showDialog<Null>(
+                showImageDownloadDialog<bool>(
                   context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return ImageDownloadWidget(item.cover);
-                  },
-                ).then((val) {});
+                  imageUrl: item.cover,
+                );
               },
             ),
           ),

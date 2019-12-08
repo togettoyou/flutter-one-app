@@ -21,8 +21,10 @@ dependencies:
     sdk: flutter
   # 网络请求
   dio: ^3.0.3
-  # 网络缓存图片
+  # 网络缓存图片(有缓存功能)
   cached_network_image: ^1.1.1
+  # 图片加载(可定义缩放等功能)
+  extended_image: ^0.6.7
   # 事件总线
   event_bus: ^1.1.0
   # 下拉刷新、上拉加载
