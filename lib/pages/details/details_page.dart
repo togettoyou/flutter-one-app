@@ -17,6 +17,7 @@ import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/widgets/image_download_widget.dart';
 import 'package:flutter_one_app/widgets/loading_widget.dart';
 import 'package:flutter_one_app/widgets/music_play_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html/dom.dart' as dom;
 
 class detailsPage extends StatefulWidget {
@@ -556,11 +557,22 @@ class _detailsPageState extends State<detailsPage> {
                       ),
                       onTap: () {
                         print(_detailsData['authorUserId']);
-                        Navigator.pushNamed(
-                          context,
-                          '/hotAuthorPage',
-                          arguments: _detailsData['authorUserId'],
-                        );
+                        if (_detailsData['authorUserId'] == "0") {
+                          Fluttertoast.showToast(
+                              msg: "无法查看该用户信息",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIos: 1,
+                              textColor: Colors.white,
+                              backgroundColor: Colors.grey,
+                              fontSize: 14.0);
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            '/hotAuthorPage',
+                            arguments: _detailsData['authorUserId'],
+                          );
+                        }
                       },
                     ),
                   ],
