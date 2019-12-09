@@ -10,6 +10,10 @@
 ## 浏览器扫码下载
 ![app-release.apk](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/qrcode.png)
 
+## 运行GIF
+
+![gif](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/gif.gif)
+
 ## 运行截图
 
 | ![ONE首页](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-11.png) | ![ONE首页-快速索引列表](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-25.png) | ![ONE首页-ToolBar展开列表](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-43.png) |
@@ -85,5 +89,6 @@
     <true/>
 </dict>
 ```
+
 
 
