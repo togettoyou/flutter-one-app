@@ -1,6 +1,7 @@
 ///ME我的页面
 
 import 'package:flutter/material.dart';
+import 'package:flutter_one_app/widgets/webview_widget.dart';
 
 class MePage extends StatefulWidget {
   MePage({Key key}) : super(key: key);
@@ -58,17 +59,26 @@ class _MePageState extends State<MePage> {
                   Positioned(
                     child: Column(
                       children: <Widget>[
-                        ClipOval(
-                          child: Image.asset(
-                            "images/img_me_avatar.png",
-                            fit: BoxFit.cover,
-                            height: 66.0,
-                            width: 66.0,
+                        InkWell(
+                          child: ClipOval(
+                            child: Image.asset(
+                              "images/img_me_avatar.png",
+                              fit: BoxFit.cover,
+                              height: 66.0,
+                              width: 66.0,
+                            ),
                           ),
+                          onTap: () {
+                            showWebViewPage(
+                              context,
+                              url: "https://github.com/ijoutop",
+                              title: "ijoutop",
+                            );
+                          },
                         ),
                         Container(
                           child: Text(
-                            "joudev",
+                            "ijoutop",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 22.0,
