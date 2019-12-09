@@ -2,7 +2,7 @@
 
 - 「ONE·一个」是由韩寒监制 [1]  ，原《独唱团》主创成员共同制作的一款文艺生活App ，官网地址：[「ONE·一个」](http://wufazhuce.com/)。此项目为高仿 ，仅供学习交流使用
 - 此项目中的数据均来自[one一个接口API](http://www.limuyang.cc/one-api-collect/#/?id=one%c2%b7%e4%b8%80%e4%b8%aa)，仅供学习交流使用，请勿滥用
-- 项目适合Flutter的练手学习，覆盖了各种基本控件使用、下拉刷新上拉加载、HTML解析、音乐播放、图片下载、权限申请等
+- 项目适合Flutter的练手学习，覆盖了各种基本控件使用、下拉刷新上拉加载、HTML解析、音乐播放、图片预览下载、权限申请等
 
 
 ## APK下载体验
@@ -23,25 +23,31 @@
 |                          分类-图文                           |                          分类-问答                           |                          分类-阅读                           |
 | ![分类-连载](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-16.png) | ![分类-音乐](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-20.png) | ![分类-阅读](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-35.png) |
 |                          分类-连载                           |                          分类-音乐                           |                        分类-图文详情                         |
-| ![图片下载](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-50.png) | ![音乐详情-播放](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-55-25.png) | ![热门作者动态](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-55-45.png) |
-|                           图片下载                           |                        音乐详情-播放                         |                         热门作者动态                         |
+| ![图片预览](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-05-19.png) | ![图片缩放](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-07-00.png) | ![图片下载](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-05-35.png) |
+|                           图片预览                           |                           图片缩放                           |                           图片下载                           |
+| ![搜索](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-07-12.png) | ![音乐详情-播放](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-13-11.png) | ![热门作者动态](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-13-36.png) |
+|                             搜索                             |                        音乐详情-播放                         |                         热门作者动态                         |
+| ![专题](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-07-22.png) |                                                              |                                                              |
+|                             搜索                             |                                                              |                                                              |
 
 ### 使用到的第三方插件
 
 
-| 名称               | 地址                                                         |
-| :----------------- | :----------------------------------------------------------- |
-| 网络请求           | [dio](https://pub.dev/packages/dio)                          |
-| 网络图片缓存       | [cached_network_image](https://pub.dev/packages/cached_network_image) |
-| 事件总线           | [event_bus](https://pub.dev/packages/event_bus)              |
-| 下拉刷新、上拉加载 | [flutter_easyrefresh](https://pub.dev/packages/flutter_easyrefresh) |
-| 微光效果控件       | [shimmer](https://pub.dev/packages/shimmer)                  |
-| 日期选择控件       | [flutter_datetime_picker](https://pub.dev/packages/flutter_datetime_picker) |
-| HTML加载           | [flutter_html](https://pub.dev/packages/flutter_html)        |
-| 权限申请           | [permission_handler](https://pub.dev/packages/permission_handler) |
-| 保存图片到相册     | [image_gallery_saver](https://pub.dev/packages/image_gallery_saver) |
-| Toast吐司          | [fluttertoast](https://pub.dev/packages/fluttertoast)        |
-| 音乐播放           | [audioplayer](https://pub.dev/packages/audioplayer)          |
+| 名称                       | 地址                                                         |
+| :------------------------- | :----------------------------------------------------------- |
+| 网络请求                   | [dio](https://pub.dev/packages/dio)                          |
+| 网络图片缓存               | [cached_network_image](https://pub.dev/packages/cached_network_image) |
+| 图片加载(可定义缩放等功能) | [extended_image](https://pub.dev/packages/extended_image)    |
+| 事件总线                   | [event_bus](https://pub.dev/packages/event_bus)              |
+| 下拉刷新、上拉加载         | [flutter_easyrefresh](https://pub.dev/packages/flutter_easyrefresh) |
+| 微光效果控件               | [shimmer](https://pub.dev/packages/shimmer)                  |
+| 日期选择控件               | [flutter_datetime_picker](https://pub.dev/packages/flutter_datetime_picker) |
+| HTML加载                   | [flutter_html](https://pub.dev/packages/flutter_html)        |
+| 网页加载                   | [webview_flutter](https://pub.dev/packages/webview_flutter)  |
+| 权限申请                   | [permission_handler](https://pub.dev/packages/permission_handler) |
+| 保存图片到相册             | [image_downloader](https://pub.dev/packages/image_downloader) |
+| Toast吐司                  | [fluttertoast](https://pub.dev/packages/fluttertoast)        |
+| 音乐播放                   | [audioplayer](https://pub.dev/packages/audioplayer)          |
 
 ### 小结
 
@@ -79,3 +85,4 @@
     <true/>
 </dict>
 ```
+
