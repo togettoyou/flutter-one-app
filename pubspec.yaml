@@ -43,9 +43,6 @@ dependencies:
   image_downloader: ^0.19.1
   # Toast吐司
   fluttertoast: ^3.1.3
-  # 音乐播放
-  audioplayer: ^0.5.2
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
