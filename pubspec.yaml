@@ -22,7 +22,7 @@ dependencies:
   # 网络请求
   dio: ^3.0.3
   # 网络缓存图片(有缓存功能)
-  cached_network_image: ^1.1.1
+  cached_network_image: ^2.0.0-rc
   # 图片加载(可定义缩放等功能)
   extended_image: ^0.6.7
   # 事件总线
@@ -36,7 +36,7 @@ dependencies:
   # HTML加载
   flutter_html: ^0.11.0
   # 网页加载
-  webview_flutter: ^0.3.17
+  webview_flutter: ^0.3.19+5
   # 权限申请
   permission_handler: ^3.2.2
   # 保存图片到相册
