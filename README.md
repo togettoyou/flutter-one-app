@@ -1,4 +1,5 @@
 # flutter_one_app 基于flutter_v1.9.1环境
+## 注：此为旧版本
 ## 新版本点此： [切换到flutter_v1.12.13版本环境](https://github.com/ijoutop/flutter-one-app/tree/master)
 
 - 「ONE·一个」是由韩寒监制 ，原《独唱团》主创成员共同制作的一款文艺生活App ，官网地址：[「ONE·一个」](http://wufazhuce.com/)。此项目为高仿 ，仅供学习交流使用
