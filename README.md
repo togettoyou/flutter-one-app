@@ -6,32 +6,32 @@
 
 
 ## APK下载体验
-- [app-release.apk](https://github.com/ijoutop/flutter-one-app/raw/master/apk/app-release.apk)
+- [app-release.apk](https://github.com/ijoutop/flutter-one-app/raw/flutter_v1.9.1/apk/app-release.apk)
 ## 浏览器扫码下载
-![app-release.apk](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/qrcode.png)
+![app-release.apk](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/qrcode.png)
 
 ## 运行GIF
 
-![gif](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/gif.gif)
+![gif](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/gif.gif)
 
 ## 运行截图
 
-| ![ONE首页](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-11.png) | ![ONE首页-快速索引列表](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-25.png) | ![ONE首页-ToolBar展开列表](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-43.png) |
+| ![ONE首页](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-11.png) | ![ONE首页-快速索引列表](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-25.png) | ![ONE首页-ToolBar展开列表](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-43.png) |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 |                           ONE首页                            |                     ONE首页-快速索引列表                     |                   ONE首页-ToolBar展开列表                    |
-| ![ONE首页-ToolBar展开列表-日期选择](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-52-49.png) | ![ALL页面](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-00.png) | ![ALL页面-热门作者](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-05.png) |
+| ![ONE首页-ToolBar展开列表-日期选择](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-49.png) | ![ALL页面](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-00.png) | ![ALL页面-热门作者](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-05.png) |
 |               ONE首页-ToolBar展开列表-日期选择               |                           ALL页面                            |                       ALL页面-热门作者                       |
-| ![ME页面](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-09.png) | ![阅读详情](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-17.png) | ![阅读详情-评论](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-37.png) |
+| ![ME页面](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-09.png) | ![阅读详情](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-17.png) | ![阅读详情-评论](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-37.png) |
 |                            ME页面                            |                           阅读详情                           |                        阅读详情-评论                         |
-| ![分类-图文](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-48.png) | ![分类-问答](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-53-53.png) | ![分类-阅读](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-12.png) |
+| ![分类-图文](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-48.png) | ![分类-问答](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-53.png) | ![分类-阅读](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-12.png) |
 |                          分类-图文                           |                          分类-问答                           |                          分类-阅读                           |
-| ![分类-连载](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-16.png) | ![分类-音乐](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-20.png) | ![分类-阅读](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-10-19_14-54-35.png) |
+| ![分类-连载](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-16.png) | ![分类-音乐](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-20.png) | ![分类-阅读](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-35.png) |
 |                          分类-连载                           |                          分类-音乐                           |                        分类-图文详情                         |
-| ![图片预览](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-05-19.png) | ![图片缩放](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-07-00.png) | ![图片下载](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-05-35.png) |
+| ![图片预览](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-05-19.png) | ![图片缩放](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-00.png) | ![图片下载](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-05-35.png) |
 |                           图片预览                           |                           图片缩放                           |                           图片下载                           |
-| ![搜索](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-07-12.png) | ![音乐详情-播放](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-13-11.png) | ![热门作者动态](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-13-36.png) |
+| ![搜索](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-12.png) | ![音乐详情-播放](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-13-11.png) | ![热门作者动态](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-13-36.png) |
 |                             搜索                             |                        音乐详情-播放                         |                         热门作者动态                         |
-| ![专题详情](https://github.com/ijoutop/flutter-one-app/blob/master/screenshots/Snipaste_2019-12-10_02-07-22.png) |                                                              |                                                              |
+| ![专题详情](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-22.png) |                                                              |                                                              |
 |                           专题详情                           |                                                              |                                                              |
 
 ### 使用到的第三方插件
@@ -59,7 +59,7 @@
 
 #### Android
 
-在 res 下新增一个 xml 目录，创建[network_security_config.xml](https://github.com/ijoutop/flutter-one-app/blob/master/android/app/src/main/res/xml/network_security_config.xml)文件
+在 res 下新增一个 xml 目录，创建[network_security_config.xml](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/android/app/src/main/res/xml/network_security_config.xml)文件
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -68,7 +68,7 @@
 </network-security-config>
 ```
 
-在[AndroidManifest.xml](https://github.com/ijoutop/flutter-one-app/blob/master/android/app/src/main/AndroidManifest.xml)文件下的application标签增加以下属性
+在[AndroidManifest.xml](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/android/app/src/main/AndroidManifest.xml)文件下的application标签增加以下属性
 
 ```xml
 <application
@@ -80,7 +80,7 @@
 
 #### iOS
 
-在[Info.plist](https://github.com/ijoutop/flutter-one-app/blob/master/ios/Runner/Info.plist)下编辑
+在[Info.plist](https://github.com/ijoutop/flutter-one-app/blob/flutter_v1.9.1/ios/Runner/Info.plist)下编辑
 
 ```xml
 <key>NSAppTransportSecurity</key>
