@@ -53,7 +53,8 @@
 | 权限申请                   | [permission_handler](https://pub.dev/packages/permission_handler) |
 | 保存图片到相册             | [image_downloader](https://pub.dev/packages/image_downloader) |
 | Toast吐司                  | [fluttertoast](https://pub.dev/packages/fluttertoast)        |
-| 音乐播放                   | [audioplayer](https://pub.dev/packages/audioplayer)          |
+| 音乐播放                   | [audioplayers](https://pub.dev/packages/audioplayers)        |
+| 状态管理 (计划迁移中)      | [provider](https://pub.dev/packages/provider)                |
 
 ### 小结
 
@@ -91,6 +92,7 @@
     <true/>
 </dict>
 ```
+
 
 
 

@@ -1,6 +1,7 @@
 ///详情页面
 
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_one_app/pages/details/details_page_item_comment.dart';
 import 'package:flutter_one_app/utils/net_utils.dart';
 import 'package:flutter_one_app/widgets/image_download_widget.dart';
 import 'package:flutter_one_app/widgets/loading_widget.dart';
+import 'package:flutter_one_app/widgets/music_player_floating_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html/dom.dart' as dom;
 
@@ -49,6 +51,9 @@ class _detailsPageState extends State<detailsPage> {
     'authorUserId': '',
   };
   DetailsItemCommentData _commentData;
+  ScrollController _controller = new ScrollController();
+  double _offset = 0;
+  bool showToBottom = false; //是否显示底部
 
   @override
   void initState() {
@@ -56,6 +61,24 @@ class _detailsPageState extends State<detailsPage> {
     _title = widget.arguments['title'];
     _type = widget.arguments['type'];
     _id = widget.arguments['id'];
+    _controller.addListener(() {
+      if (_controller.offset <= 0) {
+        setState(() {
+          showToBottom = false;
+        });
+      } else {
+        if (_offset - _controller.offset > 0 && !showToBottom) {
+          setState(() {
+            showToBottom = true;
+          });
+        } else if (_offset - _controller.offset < 0 && showToBottom) {
+          setState(() {
+            showToBottom = false;
+          });
+        }
+        _offset = _controller.offset;
+      }
+    });
     Future.delayed(new Duration(milliseconds: 800), () {
       return "延时请求数据，降低跳转卡顿现象";
     }).then((data) {
@@ -69,6 +92,7 @@ class _detailsPageState extends State<detailsPage> {
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
@@ -212,44 +236,94 @@ class _detailsPageState extends State<detailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.white,
-      appBar: new AppBar(
-        title: Text(
-          _title,
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.bookmark_border,
-              color: Colors.black,
-            ),
-            iconSize: 24.0,
-          ),
-        ],
-        centerTitle: true,
-        backgroundColor: _type == "music" ? Colors.black12 : Colors.white,
-        elevation: 0.5,
+    return getBodyByType();
+  }
+
+  Widget getLoadingWidget() {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(_title),
       ),
-      body: _data == null
-          ? Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.grey[200],
-                valueColor: AlwaysStoppedAnimation(Colors.blue),
-              ),
-            )
-          : Container(
-              child: (_type == "hp" ? getByHpBody() : getBody()),
-              decoration: _type == "music"
-                  ? BoxDecoration(
-                      gradient: LinearGradient(
-                      colors: [Colors.black38, Colors.grey],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ))
-                  : null,
-            ),
+      body: Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.grey[200],
+          valueColor: AlwaysStoppedAnimation(Colors.black),
+        ),
+      ),
     );
+  }
+
+  Widget getBodyByType() {
+    switch (_type) {
+      case 'music':
+        return _data == null
+            ? getLoadingWidget()
+            : Stack(
+                children: <Widget>[
+                  Stack(
+                    children: [
+                      CachedNetworkImage(
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                        imageUrl: "${_data.cover}",
+                        errorWidget: (context, url, error) => Container(),
+                      ),
+                      BackdropFilter(
+                        filter: new ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: new Container(
+                          color: Colors.white.withOpacity(0.5),
+                        ),
+                      )
+                    ],
+                  ),
+                  Scaffold(
+                    backgroundColor: Colors.transparent,
+                    appBar: AppBar(
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
+                      title: Text(_title),
+                    ),
+                    body: getBody(),
+                    floatingActionButton: Padding(
+                      padding: EdgeInsets.only(bottom: 56.0),
+                      child: MusicPlayerFloatingButton(
+                        url: "${_data.musicId}",
+                      ),
+                    ),
+                  ),
+                ],
+              );
+      default:
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text(
+              _title,
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.bookmark_border,
+                  color: Colors.black,
+                ),
+                iconSize: 24.0,
+              ),
+            ],
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0.5,
+          ),
+          body: _data == null
+              ? Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.grey[200],
+                    valueColor: AlwaysStoppedAnimation(Colors.black),
+                  ),
+                )
+              : _type == "hp" ? getByHpBody() : getBody(),
+        );
+    }
   }
 
   Widget getByHpBody() {
@@ -413,6 +487,7 @@ class _detailsPageState extends State<detailsPage> {
       children: <Widget>[
         CustomScrollView(
           physics: ScrollPhysics(),
+          controller: _controller,
           slivers: <Widget>[
             SliverToBoxAdapter(
               child: Container(
@@ -617,116 +692,120 @@ class _detailsPageState extends State<detailsPage> {
             ),
           ],
         ),
-        Container(
-          height: 56.0,
-          width: double.maxFinite,
-          color: _type == "music" ? Colors.grey : Colors.white,
-          child: Column(
+        showToBottom ? getBottomWidget() : Container(),
+      ],
+      alignment: Alignment.bottomCenter,
+    );
+  }
+
+  Widget getBottomWidget() {
+    return new Container(
+      height: 56.0,
+      width: double.maxFinite,
+      color: Colors.white,
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 0.2,
+            width: double.maxFinite,
+            color: Colors.black38,
+          ),
+          Flex(
+            direction: Axis.horizontal,
             children: <Widget>[
-              Container(
-                height: 0.2,
-                width: double.maxFinite,
-                color: Colors.black38,
+              Expanded(
+                child: Container(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      border: Border.all(
+                        color: Colors.black54,
+                        width: 0.5,
+                      ),
+                    ),
+                    child: Container(
+                      child: Text(
+                        "写一个评论..",
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      padding: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
+                    ),
+                  ),
+                  padding: EdgeInsets.only(left: 22.0, right: 22.0),
+                ),
+                flex: 6,
               ),
-              Flex(
-                direction: Axis.horizontal,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          border: Border.all(
+              Expanded(
+                child: Container(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          _detailsData['praiseNum'],
+                          style: TextStyle(
                             color: Colors.black54,
-                            width: 0.5,
+                            fontSize: 10.0,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        child: Container(
-                          child: Text(
-                            "写一个评论..",
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.black54,
-                            ),
+                        alignment: Alignment.topRight,
+                        padding: EdgeInsets.only(top: 5.0, right: 3.0),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.favorite_border),
+                        iconSize: 20.0,
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.only(right: 2.0),
+                ),
+                flex: 2,
+              ),
+              Expanded(
+                child: Container(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          _detailsData['commentNum'],
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 10.0,
                           ),
-                          padding: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
+                        alignment: Alignment.topRight,
+                        padding: EdgeInsets.only(top: 5.0, right: 3.0),
                       ),
-                      padding: EdgeInsets.only(left: 22.0, right: 22.0),
-                    ),
-                    flex: 6,
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              _detailsData['praiseNum'],
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 10.0,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            alignment: Alignment.topRight,
-                            padding: EdgeInsets.only(top: 5.0, right: 3.0),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.favorite_border),
-                            iconSize: 20.0,
-                          ),
-                        ],
+                      IconButton(
+                        icon: Icon(Icons.chat_bubble_outline),
+                        iconSize: 20.0,
                       ),
-                      padding: EdgeInsets.only(right: 2.0),
-                    ),
-                    flex: 2,
+                    ],
                   ),
-                  Expanded(
-                    child: Container(
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              _detailsData['commentNum'],
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 10.0,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            alignment: Alignment.topRight,
-                            padding: EdgeInsets.only(top: 5.0, right: 3.0),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.chat_bubble_outline),
-                            iconSize: 20.0,
-                          ),
-                        ],
-                      ),
-                      padding: EdgeInsets.only(right: 2.0),
-                    ),
-                    flex: 2,
+                  padding: EdgeInsets.only(right: 2.0),
+                ),
+                flex: 2,
+              ),
+              Expanded(
+                child: Container(
+                  child: IconButton(
+                    icon: Icon(Icons.share),
+                    iconSize: 18.0,
                   ),
-                  Expanded(
-                    child: Container(
-                      child: IconButton(
-                        icon: Icon(Icons.share),
-                        iconSize: 18.0,
-                      ),
-                      padding: EdgeInsets.only(left: 10.0),
-                    ),
-                    flex: 2,
-                  ),
-                ],
+                  padding: EdgeInsets.only(left: 10.0),
+                ),
+                flex: 2,
               ),
             ],
           ),
-        ),
-      ],
-      alignment: Alignment.bottomCenter,
+        ],
+      ),
     );
   }
 }
