@@ -51,9 +51,6 @@ class _detailsPageState extends State<detailsPage> {
     'authorUserId': '',
   };
   DetailsItemCommentData _commentData;
-  ScrollController _controller = new ScrollController();
-  double _offset = 0;
-  bool showToBottom = false; //是否显示底部
 
   @override
   void initState() {
@@ -61,24 +58,6 @@ class _detailsPageState extends State<detailsPage> {
     _title = widget.arguments['title'];
     _type = widget.arguments['type'];
     _id = widget.arguments['id'];
-    _controller.addListener(() {
-      if (_controller.offset <= 0) {
-        setState(() {
-          showToBottom = false;
-        });
-      } else {
-        if (_offset - _controller.offset > 0 && !showToBottom) {
-          setState(() {
-            showToBottom = true;
-          });
-        } else if (_offset - _controller.offset < 0 && showToBottom) {
-          setState(() {
-            showToBottom = false;
-          });
-        }
-        _offset = _controller.offset;
-      }
-    });
     Future.delayed(new Duration(milliseconds: 800), () {
       return "延时请求数据，降低跳转卡顿现象";
     }).then((data) {
@@ -92,7 +71,6 @@ class _detailsPageState extends State<detailsPage> {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -487,7 +465,6 @@ class _detailsPageState extends State<detailsPage> {
       children: <Widget>[
         CustomScrollView(
           physics: ScrollPhysics(),
-          controller: _controller,
           slivers: <Widget>[
             SliverToBoxAdapter(
               child: Container(
@@ -692,7 +669,7 @@ class _detailsPageState extends State<detailsPage> {
             ),
           ],
         ),
-        showToBottom ? getBottomWidget() : Container(),
+        getBottomWidget(),
       ],
       alignment: Alignment.bottomCenter,
     );
