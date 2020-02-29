@@ -1,6 +1,6 @@
 # flutter_one_app 基于flutter_v1.9.1环境
 ## 注：此为旧版本
-## 新版本点此： [切换到flutter_v1.12.13版本环境](https://github.com/nightloud/flutter-one-app/tree/master)
+## 新版本点此： [切换到flutter_v1.12.13版本环境](https://github.com/togettoyou/flutter-one-app/tree/master)
 
 - 「ONE·一个」是由韩寒监制 ，原《独唱团》主创成员共同制作的一款文艺生活App ，官网地址：[「ONE·一个」](http://wufazhuce.com/)。此项目为高仿 ，仅供学习交流使用
 - 此项目中的数据均来自[one一个接口API](http://www.limuyang.cc/one-api-collect/#/?id=one%c2%b7%e4%b8%80%e4%b8%aa)，特此致谢
@@ -8,32 +8,32 @@
 
 
 ## APK下载体验
-- [app-release.apk](https://github.com/nightloud/flutter-one-app/raw/flutter_v1.9.1/apk/app-release.apk)
+- [app-release.apk](https://github.com/togettoyou/flutter-one-app/raw/flutter_v1.9.1/apk/app-release.apk)
 ## 浏览器扫码下载
-![app-release.apk](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/qrcode.png)
+![app-release.apk](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/qrcode.png)
 
 ## 运行GIF
 
-![gif](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/gif.gif)
+![gif](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/gif.gif)
 
 ## 运行截图
 
-| ![ONE首页](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-11.png) | ![ONE首页-快速索引列表](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-25.png) | ![ONE首页-ToolBar展开列表](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-43.png) |
+| ![ONE首页](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-11.png) | ![ONE首页-快速索引列表](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-25.png) | ![ONE首页-ToolBar展开列表](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-43.png) |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 |                           ONE首页                            |                     ONE首页-快速索引列表                     |                   ONE首页-ToolBar展开列表                    |
-| ![ONE首页-ToolBar展开列表-日期选择](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-49.png) | ![ALL页面](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-00.png) | ![ALL页面-热门作者](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-05.png) |
+| ![ONE首页-ToolBar展开列表-日期选择](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-52-49.png) | ![ALL页面](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-00.png) | ![ALL页面-热门作者](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-05.png) |
 |               ONE首页-ToolBar展开列表-日期选择               |                           ALL页面                            |                       ALL页面-热门作者                       |
-| ![ME页面](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-09.png) | ![阅读详情](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-17.png) | ![阅读详情-评论](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-37.png) |
+| ![ME页面](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-09.png) | ![阅读详情](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-17.png) | ![阅读详情-评论](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-37.png) |
 |                            ME页面                            |                           阅读详情                           |                        阅读详情-评论                         |
-| ![分类-图文](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-48.png) | ![分类-问答](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-53.png) | ![分类-阅读](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-12.png) |
+| ![分类-图文](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-48.png) | ![分类-问答](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-53-53.png) | ![分类-阅读](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-12.png) |
 |                          分类-图文                           |                          分类-问答                           |                          分类-阅读                           |
-| ![分类-连载](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-16.png) | ![分类-音乐](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-20.png) | ![分类-阅读](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-35.png) |
+| ![分类-连载](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-16.png) | ![分类-音乐](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-20.png) | ![分类-阅读](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-10-19_14-54-35.png) |
 |                          分类-连载                           |                          分类-音乐                           |                        分类-图文详情                         |
-| ![图片预览](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-05-19.png) | ![图片缩放](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-00.png) | ![图片下载](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-05-35.png) |
+| ![图片预览](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-05-19.png) | ![图片缩放](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-00.png) | ![图片下载](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-05-35.png) |
 |                           图片预览                           |                           图片缩放                           |                           图片下载                           |
-| ![搜索](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-12.png) | ![音乐详情-播放](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-13-11.png) | ![热门作者动态](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-13-36.png) |
+| ![搜索](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-12.png) | ![音乐详情-播放](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-13-11.png) | ![热门作者动态](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-13-36.png) |
 |                             搜索                             |                        音乐详情-播放                         |                         热门作者动态                         |
-| ![专题详情](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-22.png) |                                                              |                                                              |
+| ![专题详情](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/screenshots/Snipaste_2019-12-10_02-07-22.png) |                                                              |                                                              |
 |                           专题详情                           |                                                              |                                                              |
 
 ### 使用到的第三方插件
@@ -61,7 +61,7 @@
 
 #### Android
 
-在 res 下新增一个 xml 目录，创建[network_security_config.xml](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/android/app/src/main/res/xml/network_security_config.xml)文件
+在 res 下新增一个 xml 目录，创建[network_security_config.xml](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/android/app/src/main/res/xml/network_security_config.xml)文件
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -70,7 +70,7 @@
 </network-security-config>
 ```
 
-在[AndroidManifest.xml](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/android/app/src/main/AndroidManifest.xml)文件下的application标签增加以下属性
+在[AndroidManifest.xml](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/android/app/src/main/AndroidManifest.xml)文件下的application标签增加以下属性
 
 ```xml
 <application
@@ -82,7 +82,7 @@
 
 #### iOS
 
-在[Info.plist](https://github.com/nightloud/flutter-one-app/blob/flutter_v1.9.1/ios/Runner/Info.plist)下编辑
+在[Info.plist](https://github.com/togettoyou/flutter-one-app/blob/flutter_v1.9.1/ios/Runner/Info.plist)下编辑
 
 ```xml
 <key>NSAppTransportSecurity</key>
