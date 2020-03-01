@@ -71,8 +71,8 @@ class _MePageState extends State<MePage> {
                           onTap: () {
                             showWebViewPage(
                               context,
-                              url: "https://github.com/ijoutop",
-                              title: "ijoutop",
+                              url: "https://github.com/togettoyou",
+                              title: "夜央 Oh oh oh oh oh oh",
                             );
                           },
                         ),
