@@ -8,9 +8,15 @@
 
 
 ## APK下载体验
-- [app-release.apk](https://github.com/togettoyou/flutter-one-app/raw/master/apk/app-release.apk)
-## 浏览器扫码下载
+## 蓝奏云下载地址：
+https://wws.lanzous.com/ixoMjkb81te
+密码:i052
+
+## github下载： [app-release.apk](https://github.com/togettoyou/flutter-one-app/raw/master/apk/app-release.apk)
+## 浏览器扫码下载(github地址)
 ![app-release.apk](https://github.com/togettoyou/flutter-one-app/blob/master/screenshots/qrcode.png)
+
+
 
 ## 运行GIF
 
