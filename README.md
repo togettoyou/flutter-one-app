@@ -1,7 +1,7 @@
 # flutter_one_app
 
 
-![微信公众号.png](https://cdn.nlark.com/yuque/0/2021/png/1077776/1628480038431-1742ccdc-c1e9-476b-980f-2f1a54e0fe58.png)
+![微信公众号.png](https://cdn.nlark.com/yuque/0/2021/png/1077776/1628483947581-9a649b2f-a0bb-4ef4-879d-92ab6e9fddde.png)
 
 
 ## 此版本适配flutter_v1.12.13环境
