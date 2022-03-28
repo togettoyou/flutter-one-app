@@ -1,7 +1,7 @@
 # flutter_one_app
 
 
-![微信公众号.png](https://gitee.com/togettoyou/picture/raw/master/2022-2-9/1644374999459-weixin.jpg)
+![微信公众号.png](https://user-images.githubusercontent.com/55381228/155444889-eacc0104-cd85-45c9-b7b7-9036e0c2334c.jpg)
 
 
 ## 此版本适配flutter_v1.12.13环境
